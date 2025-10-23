@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تقرير سرعة الموقع — قبل التنفيذ</title>
+  <style>
+    :root{
+      --brand:#FE875F;/* أساسي */
+      --brand-2:#FECC90;/* ثانوي */
+      --cream:#F5E9D8;/* خلفيات */
+      --white:#FFFFFF;
+      --ink:#1F2937;/* نص */
+      --muted:#6B7280;/* نص ثانوي */
+      --border:#E5E7EB;/* حدود */
+      --good:#16A34A; --warn:#F59E0B; --bad:#DC2626;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; background:var(--white); color:var(--ink); font: 15px/1.7 system-ui, "Tajawal", "Cairo", Arial; }
+    .sheet{max-width:1000px; margin:24px auto; background:var(--white)}
+    header{border:1px solid var(--border); border-radius:16px; overflow:hidden}
+    .top{background:var(--cream); padding:18px 20px; display:flex; align-items:center; justify-content:space-between}
+    .top h1{margin:0; font-size:20px}
+    .meta{padding:12px 20px; border-top:1px solid var(--border); display:flex; gap:16px; flex-wrap:wrap; color:var(--muted)}
+    .badge{background:var(--brand); color:#fff; padding:6px 10px; border-radius:999px; font-size:12px}
+
+    .section{margin-top:16px; border:1px solid var(--border); border-radius:16px; padding:16px}
+    .section h2{margin:0 0 12px 0; font-size:18px}
+
+    .grid{display:grid; gap:12px}
+    .grid.cols-3{grid-template-columns: repeat(3, minmax(0,1fr))}
+    .grid.cols-2{grid-template-columns: repeat(2, minmax(0,1fr))}
+    .card{border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--white)}
+
+    .kpi h3{margin:0; font-size:12px; color:var(--muted)}
+    .kpi .val{font-size:26px; font-weight:700}
+    .tag{display:inline-block; padding:2px 8px; border:1px solid var(--border); border-radius:999px; font-size:11px; color:var(--muted)}
+
+    .tbl{width:100%; border-collapse:separate; border-spacing:0; border:1px solid var(--border); border-radius:10px; overflow:hidden}
+    .tbl th, .tbl td{padding:10px 12px; text-align:right; border-bottom:1px solid var(--border)}
+    .tbl thead th{background:var(--cream)}
+    .hint{color:var(--muted); font-size:12px}
+
+    .bar{height:8px; background:#F3F4F6; border-radius:999px; overflow:hidden}
+    .bar > i{display:block; height:8px; background:var(--brand); width:50%}
+
+    .shots{display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px}
+    .shot{background:var(--cream); border:1px dashed var(--border); border-radius:12px; height:160px; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:13px}
+
+    /* طباعة */
+    @media print{
+      body{background:var(--white)}
+      .sheet{margin:0 auto}
+      @page{ size:A4; margin:16mm }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <header>
+      <div class="top">
+        <h1>تقرير أداء وسرعة الموقع — ملخص قبل التنفيذ</h1>
+        <span class="badge">Pre‑Work Audit</span>
+      </div>
+      <div class="meta">
+        <div><strong>الموقع:</strong> {{meta.site_url}}</div>
+        <div><strong>العميل:</strong> {{meta.client_name}}</div>
+        <div><strong>PSI:</strong> {{meta.date_psi}}</div>
+        <div><strong>GTmetrix:</strong> {{meta.date_gtm}}</div>
+        <div><strong>مُعدّ بواسطة:</strong> {{meta.prepared_by}}</div>
+      </div>
+    </header>
+
+    <section class="section">
+      <h2>الملخص التنفيذي</h2>
+      <div class="grid cols-3">
+        <div class="card kpi"><h3>PSI — موبايل</h3><div class="val">{{kpi.psi_mobile}}/100</div><span class="tag">قبل التحسين</span></div>
+        <div class="card kpi"><h3>PSI — كمبيوتر</h3><div class="val">{{kpi.psi_desktop}}/100</div><span class="tag">قبل التحسين</span></div>
+        <div class="card kpi"><h3>TTFB</h3><div class="val">{{kpi.ttfb_ms}} ملّي</div><span class="tag">المستهدف &lt; 600ms</span></div>
+        <div class="card kpi"><h3>LCP</h3><div class="val">{{kpi.lcp_s}} ث</div></div>
+        <div class="card kpi"><h3>INP</h3><div class="val">{{kpi.inp_ms}} ملّي</div></div>
+        <div class="card kpi"><h3>CLS</h3><div class="val">{{kpi.cls}}</div></div>
+      </div>
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="card">
+          <h3 style="margin:0 0 6px 0">مؤشر السرعة العام</h3>
+          <div class="bar"><i style="width: {{kpi.psi_mobile}}%"></i></div>
+          <p class="hint" style="margin-top:6px">التركيز على الموبايل أولًا. الهدف ≥ 75.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 6px 0">حجم الصفحة والطلبات</h3>
+          <div><strong>{{kpi.page_size_mb}}MB</strong> · <strong>{{kpi.requests}}</strong> طلب</div>
+          <p class="hint" style="margin-top:6px">استهداف ≤ 1.0MB و ≤ 45 طلب.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>أكبر المشاكل (Top Issues)</h2>
+      <table class="tbl">
+        <thead><tr><th>المصدر</th><th>المشكلة</th><th>الأثر</th><th>الجهد</th><th>اقتراح الحل</th></tr></thead>
+        <tbody>
+          {{#each top_issues}}
+          <tr>
+            <td>{{source}}</td>
+            <td>{{title}}</td>
+            <td>{{impact}}</td>
+            <td>{{effort}}</td>
+            <td>{{fix}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <p class="hint">مرتبة حسب أعلى أثر (توفير وقت/حجم).</p>
+    </section>
+
+    <section class="section">
+      <h2>Quick Wins (0–7 أيام)</h2>
+      <ul>
+        {{#each quick_wins}}
+        <li><strong>{{title}}:</strong> {{action}} — <span class="hint">أثر: {{impact}}</span></li>
+        {{/each}}
+      </ul>
+      <p class="hint">تقدير مكسب: +{{est_gain}} نقاط PSI على الموبايل.</p>
+    </section>
+
+    <section class="section">
+      <h2>خطة التنفيذ المرحلية</h2>
+      <div class="grid cols-3">
+        <div class="card"><h3>مرحلة 1 (48 ساعة)</h3><ul>{{#each plan.phase1}}<li>{{this}}</li>{{/each}}</ul></div>
+        <div class="card"><h3>مرحلة 2 (أسبوع)</h3><ul>{{#each plan.phase2}}<li>{{this}}</li>{{/each}}</ul></div>
+        <div class="card"><h3>مرحلة 3 (2–3 أسابيع)</h3><ul>{{#each plan.phase3}}<li>{{this}}</li>{{/each}}</ul></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>لقطات قبل/بعد (اختياري)</h2>
+      <div class="shots">
+        <div class="shot">{{#if shots.before}}<img src="{{shots.before}}" alt="قبل" style="max-width:100%; max-height:100%"/>{{else}}لقطة قبل{{/if}}</div>
+        <div class="shot">{{#if shots.after}}<img src="{{shots.after}}" alt="بعد" style="max-width:100%; max-height:100%"/>{{else}}لقطة بعد{{/if}}</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>الملاحق والمراجع</h2>
+      <ul class="hint">
+        <li>PSI: {{meta.psi_link}}</li>
+        <li>GTmetrix: {{meta.gtmetrix_filename}}</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
