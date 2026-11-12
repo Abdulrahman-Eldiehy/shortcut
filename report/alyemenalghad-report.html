@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>تقرير فحص اليمن الغد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* خط ثمانية: ضع ملفات OTF الرسمية داخل مجلد fonts بجانب هذا الملف */
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Regular.otf") format("opentype");font-weight:400}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Medium.otf") format("opentype");font-weight:500}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Bold.otf") format("opentype");font-weight:700}
+@font-face{font-family:"Thmanyah Serif Display";src:url("fonts/thmanyahserifdisplay-Bold.otf") format("opentype");font-weight:700}
+
+/* ألوان الهوية: تُستبدل بألوان موقعك */
+:root{
+  --brand:#0F3D3E;      /* اللون الأساسي */
+  --brand-2:#145A5B;
+  --accent:#E07A2E;     /* لون التمييز */
+  --ink:#1B1F23;
+  --muted:#5C6670;
+  --line:#E3E7EA;
+  --soft:#F5F7F7;
+  --crit:#B42318; --crit-bg:#FDECEA;
+  --high:#B54708; --high-bg:#FEF3E6;
+  --med:#1D4E89;  --med-bg:#EAF1FB;
+  --ok:#067647;   --ok-bg:#E8F6EE;
+  --font:"Thmanyah Sans","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --display:"Thmanyah Serif Display","Thmanyah Sans","IBM Plex Sans Arabic",serif;
+}
+@page{size:A4;margin:16mm 15mm 18mm}
+@page:first{margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--ink);font-family:var(--font);font-size:10.5pt;line-height:1.75}
+h1,h2,h3{font-family:var(--display);color:var(--brand);line-height:1.35;margin:0}
+h2{font-size:17pt;margin:26px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--brand);display:flex;gap:10px;align-items:baseline}
+h2 .n{color:var(--accent);font-size:13pt}
+h3{font-size:12.5pt;margin:16px 0 6px}
+p{margin:0 0 10px}
+.ltr{direction:ltr;unicode-bidi:isolate;font-family:var(--font)}
+code{direction:ltr;unicode-bidi:isolate;font-size:9pt;background:var(--soft);padding:1px 5px;border-radius:4px}
+.page-break{break-before:page}
+
+/* الغلاف */
+.cover{height:296mm;display:flex;flex-direction:column;justify-content:space-between;background:var(--brand);color:#fff;margin:0;padding:30mm 20mm 22mm;break-after:page}
+.cover .tag{display:inline-block;background:var(--accent);color:#fff;padding:4px 14px;border-radius:999px;font-weight:700;font-size:10pt}
+.cover h1{color:#fff;font-size:30pt;margin:18px 0 10px}
+.cover .sub{font-size:13pt;opacity:.9;max-width:150mm}
+.cover .meta{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;border-top:1px solid rgba(255,255,255,.25);padding-top:16px;font-size:10.5pt}
+.cover .meta b{display:block;opacity:.7;font-weight:500;font-size:9pt}
+.cover .who{font-family:var(--display);font-size:16pt}
+
+/* بطاقات */
+.summary{background:var(--soft);border-right:5px solid var(--accent);padding:14px 18px;border-radius:8px;margin:6px 0 14px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.kpi{border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center;break-inside:avoid}
+.kpi .v{font-size:18pt;font-weight:700;color:var(--brand);line-height:1.2}
+.kpi .l{font-size:8.5pt;color:var(--muted)}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin:8px 0}
+.facts div{border-bottom:1px dashed var(--line);padding:4px 0;display:flex;justify-content:space-between;gap:10px}
+.facts span{color:var(--muted)}
+
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:9.5pt}
+th{background:var(--brand);color:#fff;text-align:right;padding:7px 9px;font-weight:700}
+td{border-bottom:1px solid var(--line);padding:7px 9px;vertical-align:top}
+tr{break-inside:avoid}
+tbody tr:nth-child(even) td{background:#FAFBFB}
+.num{text-align:left;direction:ltr;white-space:nowrap}
+.pill{display:inline-block;padding:1px 9px;border-radius:999px;font-size:8.5pt;font-weight:700;white-space:nowrap}
+.p-crit{background:var(--crit-bg);color:var(--crit)}
+.p-high{background:var(--high-bg);color:var(--high)}
+.p-med{background:var(--med-bg);color:var(--med)}
+.p-ok{background:var(--ok-bg);color:var(--ok)}
+
+.issue{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0 0 10px;break-inside:avoid}
+.issue .hd{display:flex;gap:8px;align-items:center;margin-bottom:4px}
+.issue .hd h3{margin:0;font-size:11.5pt}
+.issue .row{font-size:9.6pt;margin:3px 0}
+.issue .row b{color:var(--brand)}
+
+ul.check{list-style:none;padding:0;margin:0 0 10px}
+ul.check li{padding:3px 22px 3px 0;position:relative}
+ul.check li::before{content:"✓";position:absolute;right:0;color:var(--ok);font-weight:700}
+ul.dash li{margin-bottom:4px}
+
+.phase{display:grid;grid-template-columns:34px 1fr;gap:12px;border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;break-inside:avoid}
+.phase .b{width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.phase h3{margin:0 0 4px}
+.phase .when{color:var(--accent);font-weight:700;font-size:9.5pt}
+
+.price{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+.pcard{border:1px solid var(--line);border-radius:10px;padding:14px;break-inside:avoid}
+.pcard.main{border:2px solid var(--brand)}
+.pcard .t{font-weight:700;color:var(--brand)}
+.pcard .a{font-size:19pt;font-weight:700;color:var(--accent);margin:4px 0;direction:ltr;text-align:right}
+.pcard p{font-size:9.3pt;color:var(--muted);margin:0}
+.note{font-size:9pt;color:var(--muted)}
+
+.contact{margin-top:18px;background:var(--brand);color:#fff;border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:12px;align-items:center;break-inside:avoid}
+.contact b{display:block;font-size:8.5pt;opacity:.75;font-weight:500}
+.contact a{color:#fff;text-decoration:none;font-weight:700}
+.contact .who{font-family:var(--display);font-size:14pt}
+</style>
+</head>
+<body>
+
+<!-- الغلاف -->
+<section class="cover">
+  <div>
+    <span class="tag">تقرير فحص تقني وسيو</span>
+    <h1>موقع اليمن الغد<br>الفحص التقني وخطة التطوير</h1>
+    <p class="sub">مراجعة القالب والإعدادات والمحتوى، وما يؤثر منها على الظهور في بحث جوجل وأهم الأخبار وGoogle Discover، مع خطة عمل وعرض سعر.</p>
+  </div>
+  <div class="meta">
+    <div><b>الموقع</b><span class="ltr">alyemenalghad.com</span></div>
+    <div><b>تاريخ الفحص</b>12 نوفمبر 2026</div>
+    <div><b>إعداد</b><span class="who">عبدالرحمن الديهي</span></div>
+    <div><b>للتواصل</b><span class="ltr">WhatsApp +20 109 986 4648</span><br><span class="ltr">abdotoon970@gmail.com</span></div>
+  </div>
+</section>
+
+<!-- 1 -->
+<h2><span class="n">01</span> الخلاصة التنفيذية</h2>
+<div class="summary">
+  <p><b>الموقع مبني على أساس تقني جيد</b>، وتحسن كثيرًا مقارنة بوضعه في مايو 2026 حين كان يعمل بقالب Jannah وإضافة Rank Math. القالب الحالي مخصص وسريع، وفيه NewsArticle schema وخريطة أخبار تعمل ووسم <code>max-image-preview:large</code>.</p>
+  <p><b>لا يوجد في القالب خطأ برمجي يمنع التصدر.</b> العوائق الأهم موجودة في <b>الإعدادات</b>، مثل خلاصة RSS متأخرة، وصفحة HTML لا تُخزَّن على Cloudflare، وصفحات كتّاب متعارضة. وموجودة أيضًا في <b>إشارات الثقة والمحتوى</b>، مثل حساب كاتب باسم <span class="ltr">z.ai</span>، وتوقيع جماعي على معظم الأخبار، ومقالات مكررة لنفس الموضوع، وأرشيف قديم خارج التخصص.</p>
+  <p style="margin:0">معالجة هذه النقاط ترفع فرص الظهور في أهم الأخبار وDiscover. لكن ترتيب النتائج وظهور الأخبار في جوجل يخضعان لأنظمة جوجل نفسها، ولا يمكن لأي جهة ضمان ترتيب معيّن.</p>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="v">95</div><div class="l">أداء الجوال (Lighthouse)</div></div>
+  <div class="kpi"><div class="v">100</div><div class="l">أداء الكمبيوتر</div></div>
+  <div class="kpi"><div class="v">0</div><div class="l">إزاحة التصميم CLS</div></div>
+  <div class="kpi"><div class="v">≈2.8 ث</div><div class="l">LCP الرئيسية على الجوال</div></div>
+</div>
+<p class="note">أرقام معملية من Lighthouse. بيانات المستخدمين الفعلية (CrUX وINP) تحتاج صلاحية Search Console.</p>
+
+<h3>البيئة التقنية للموقع</h3>
+<div class="facts">
+  <div><span>القالب</span><b>مخصص: alyemenalghad</b></div>
+  <div><span>إضافة السيو</span><b>Yoast SEO + Yoast News</b></div>
+  <div><span>الكاش والأداء</span><b>WP Rocket + Cloudflare</b></div>
+  <div><span>خرائط الموقع</span><b>19 خريطة، حوالي 6,600 مقال</b></div>
+  <div><span>خريطة الأخبار</span><b>تعمل، وفيها 10 أخبار وقت الفحص</b></div>
+  <div><span>AMP</span><b>غير مفعّل (غير مطلوب حاليًا)</b></div>
+</div>
+
+<!-- 2 -->
+<h2><span class="n">02</span> نقاط القوة</h2>
+<ul class="check">
+  <li>HTTPS مع HSTS. نسخة http وwww والنطاقات القديمة (ar. وye. وartic.) كلها تحوّل بـ 301 إلى النطاق الأساسي، وتحافظ على مسار الرابط.</li>
+  <li>ملف robots.txt سليم ولا يمنع أي محتوى مهم، وفيه رابط خريطة الأخبار وفهرس Yoast.</li>
+  <li>NewsArticle schema في المقالات، وفيه تاريخ النشر والتعديل بالمنطقة الزمنية وصورة 1200px وخاصية speakable.</li>
+  <li>NewsMediaOrganization مربوط بصفحات السياسة التحريرية والتصحيح والأخلاقيات والملكية والتمويل، وكلها صفحات تعمل.</li>
+  <li>وسم <code>max-image-preview:large</code> موجود، وهو شرط أساسي للظهور بصورة كبيرة في Discover.</li>
+  <li>canonical صحيح، و<code>lang="ar" dir="rtl"</code>، وH1 واحد في الرئيسية والمقال، وOpen Graph وTwitter مكتملة.</li>
+  <li>الصور بصيغة WebP ولها أبعاد ثابتة، فلا يحدث CLS. وصفحات الثقة مكتملة، وهذه نقطة قوية لأخبار جوجل.</li>
+</ul>
+
+<!-- 3 -->
+<h2 class="page-break"><span class="n">03</span> المشاكل مرتبة حسب الأولوية</h2>
+<p>كل نقطة فيها الدليل من الفحص، ونوعها (كود القالب أو إعدادات أو محتوى)، والحل المقترح.</p>
+
+<div class="issue"><div class="hd"><span class="pill p-crit">حرجة</span><h3>حساب كاتب باسم z.ai مفهرس في جوجل</h3></div>
+<div class="row"><b>الدليل:</b> صفحة <code>/author/z-ai/</code> عنوانها «z.ai z.ai»، وعليها <code>index</code>، ومدرجة في author-sitemap، وفيها مقالات منشورة. هذا يرسل لجوجل إشارة مباشرة بأن المحتوى مولّد آليًا.</div>
+<div class="row"><b>الحل:</b> نقل مقالات الحساب إلى محرر حقيقي أو اسم مهني، وحذف الحساب أو إخفاؤه من الفهرسة وخريطة الكتّاب. <span class="note">(محتوى + إعدادات)</span></div></div>
+
+<div class="issue"><div class="hd"><span class="pill p-crit">حرجة</span><h3>مقالات مكررة تتنافس على نفس الكلمة</h3></div>
+<div class="row"><b>الدليل:</b> 6 روابط على الأقل لموضوع «تردد قناة طيور الجنة» موزعة على أقسام general وtrends وart، منها 3 نُشرت في أقل من 4 دقائق. وتتكرر الحالة نفسها مع صفحات أسعار الذهب الدائمة واليومية.</div>
+<div class="row"><b>الحل:</b> دمج كل موضوع في صفحة واحدة دائمة تُحدَّث باستمرار، وتحويل الباقي إليها بـ 301. <span class="note">(محتوى + إعدادات)</span></div></div>
+
+<div class="issue"><div class="hd"><span class="pill p-high">عالية</span><h3>ضعف إشارات الخبرة والثقة (E-E-A-T) في التوقيع</h3></div>
+<div class="row"><b>الدليل:</b> المقالات بتوقيع «هيئة تحرير اليمن الغد»، كانت 42 من 50 في العينة. ونوع الكاتب في الـ schema هو Organization وليس Person. واسم الكاتب موضوع داخل <code>h2</code> في المقال.</div>
+<div class="row"><b>الحل:</b> صفحات كتّاب بأسماء حقيقية، أو بأسماء مهنية ثابتة إذا كانت سلامة الصحفيين تتطلب ذلك، مع Person وProfilePage schema (صورة ونبذة وتخصص). ونقل اسم الكاتب من h2 إلى عنصر عادي. <span class="note">(كود القالب + محتوى)</span></div></div>
+
+<div class="issue"><div class="hd"><span class="pill p-high">عالية</span><h3>تعارض فهرسة صفحات الكتّاب</h3></div>
+<div class="row"><b>الدليل:</b> صفحة الكاتب الرئيسي <code>/author/alyemen-alghad/</code> عليها <code>noindex</code>، بينما 6 صفحات كتّاب أخرى مفهرسة، ومنها z-ai.</div>
+<div class="row"><b>الحل:</b> قاعدة واحدة واضحة: صفحات الكتّاب الحقيقيين مفهرسة وغنية بالمعلومات، والحسابات الآلية أو الفارغة غير مفهرسة. <span class="note">(إعدادات Yoast + القالب)</span></div></div>
+
+<div class="issue"><div class="hd"><span class="pill p-high">عالية</span><h3>خلاصة RSS متأخرة عن الموقع</h3></div>
+<div class="row"><b>الدليل:</b> آخر تحديث للخلاصة <span class="ltr">11 Nov 15:25 UTC</span>، بينما خريطة الأخبار فيها أخبار منشورة صباح 12 نوفمبر غير موجودة في الخلاصة. وصورة <code>media:content</code> عرضها 820px فقط.</div>
+<div class="row"><b>الحل:</b> استثناء <code>/feed/</code> من كاش WP Rocket وCloudflare، أو مسحه تلقائيًا عند النشر، ورفع صورة الخلاصة إلى 1200px. Google News وتطبيقات التجميع تعتمد على الخلاصة. <span class="note">(إعدادات + كود)</span></div></div>
+
+<div class="issue"><div class="hd"><span class="pill p-high">عالية</span><h3>صفحات HTML غير مخزنة على Cloudflare</h3></div>
+<div class="row"><b>الدليل:</b> <code>cf-cache-status: DYNAMIC</code>، أي أن كل زيارة تصل إلى السيرفر. زمن استجابة السيرفر (TTFB) سجّل بين 0.6 و1.1 ثانية على الجوال، والمستهدف أقل من 0.8 ثانية.</div>
+<div class="row"><b>الحل:</b> تفعيل كاش HTML على Cloudflare مع مسح تلقائي للرئيسية والأقسام والمقال عند النشر والتعديل. <span class="note">(إعدادات + كود)</span></div></div>
+
+<div class="issue"><div class="hd"><span class="pill p-high">عالية</span><h3>الرئيسية تعمل preload لصورة قديمة</h3></div>
+<div class="row"><b>الدليل:</b> الـ head يعمل preload بأولوية عالية لصورة <code>ALIFARE.webp</code> من أكتوبر، بينما الصورة الأكبر الفعلية (LCP) هي صورة الخبر الرئيسي الحالي. يُهدر هذا تحميلًا ويؤخر LCP على الجوال حوالي ثانية.</div>
+<div class="row"><b>الحل:</b> توليد الـ preload ديناميكيًا لصورة الخبر الأول، ومسح كاش WP Rocket عند تغييره. <span class="note">(كود القالب + WP Rocket)</span></div></div>
+
+<div class="issue"><div class="hd"><span class="pill p-high">عالية</span><h3>أرشيف قديم خارج التخصص الإخباري</h3></div>
+<div class="row"><b>الدليل:</b> حوالي 6,600 مقال منذ 2017، منها محتوى مثل تفسير الأحلام وجداول امتحانات 2022 وترددات القنوات، وصورها القديمة بعرض 381 إلى 752px، وهذا أقل من 1200px المطلوبة لـ Discover. وقد أشار مشاركون في منتدى ناشري أخبار جوجل إلى أن خلط الأخبار بمحتوى منوّع يُضعف التخصص الإخباري.</div>
+<div class="row"><b>الحل:</b> تصنيف الأرشيف (إبقاء أو تحديث أو دمج أو noindex أو حذف) بناءً على بيانات الزيارات من Search Console. <span class="note">(محتوى)</span></div></div>
+
+<h3>مشاكل متوسطة</h3>
+<table>
+<thead><tr><th style="width:26%">المشكلة</th><th>الدليل والحل</th><th style="width:15%">النوع</th></tr></thead>
+<tbody>
+<tr><td>CSS وJS مضمنة في الـ head</td><td>حوالي 38KB CSS و30KB JS مضمنة في كل صفحة، وجزء كبير من الـ CSS غير مستخدم. الحل: CSS حرج فقط، ونقل الباقي لملفات قابلة للكاش.</td><td>كود القالب</td></tr>
+<tr><td>صور البطاقات أكبر من اللازم</td><td>صور 768px تُعرض بعرض حوالي 360px على الجوال. الحل: ضبط <code>sizes</code> و<code>srcset</code>.</td><td>كود القالب</td></tr>
+<tr><td>نوع schema غير دقيق</td><td>مقالات الرأي نوعها NewsArticle، والصحيح OpinionNewsArticle.</td><td>كود القالب</td></tr>
+<tr><td>صفحات entity وstory رقيقة</td><td>حوالي 217 صفحة entity و27 صفحة story مفهرسة، وبعضها فيه أقل من 150 كلمة. الحل: noindex تلقائي تحت حد معين، مع وصف للصفحات المهمة.</td><td>كود القالب</td></tr>
+<tr><td>ملف manifest مفقود</td><td><code>manifest.webmanifest</code> مربوط في الـ head ويعطي خطأ 404.</td><td>كود القالب</td></tr>
+<tr><td>عناوين title غير موحدة</td><td>بعضها يبدأ باسم الموقع وبعضها ينتهي به وبعضها بدونه. الحل: قالب موحد في Yoast.</td><td>Yoast</td></tr>
+<tr><td>سلسلة تحويلات</td><td>الرابط <code>http://www</code> يحوّل إلى <code>https://www</code> ثم إلى النطاق الأساسي، أي خطوتين بدل خطوة واحدة.</td><td>Cloudflare</td></tr>
+<tr><td>عدد الأخبار اليومي</td><td>10 أخبار فقط في خريطة الأخبار خلال 48 ساعة، وهو عدد قليل للمنافسة في أهم الأخبار.</td><td>محتوى</td></tr>
+</tbody>
+</table>
+
+<!-- 4 -->
+<h2 class="page-break"><span class="n">04</span> خلفية مهمة: تاريخ مشكلة الظهور</h2>
+<p>مشكلة تراجع الظهور ليست جديدة. توجد شكاوى منشورة باسم الموقع في منتديات جوجل بتاريخ <b>4 سبتمبر 2025</b> و<b>11 مايو 2026</b> عن تراجع الظهور في Google News وأهم الأخبار وتأخر الفهرسة، حين كان الموقع يعمل بقالب Jannah وإضافة Rank Math. أشار بعض المشاركين وقتها إلى كثافة الإعلانات كسبب محتمل.</p>
+<p>القالب الحالي حل أغلب المشاكل التقنية لتلك المرحلة. لذلك من المرجح أن السبب الأكبر المتبقي هو <b>إشارات الثقة والمحتوى</b> وليس الكود. حسم السبب بدقة يحتاج بيانات Search Console، ومنها تقارير الفهرسة وأخطاء 404 لروابط العصر القديم ومسار الزيارات قبل النقل وبعده.</p>
+
+<h3>ما يحتاج صلاحية من الإدارة لقياسه</h3>
+<ul class="dash">
+  <li>بيانات المستخدمين الفعلية لـ Core Web Vitals (CrUX وINP) من Search Console.</li>
+  <li>نسبة الصفحات المفهرسة، وتقارير الأخبار وDiscover، والإجراءات اليدوية إن وُجدت.</li>
+  <li>Google Publisher Center وحالة الموقع في Google News.</li>
+  <li>روابط الهيكل القديم من عهد Jannah: هل تحوّل كلها إلى مقالاتها الجديدة أم تعطي 404؟</li>
+</ul>
+
+<!-- 5 -->
+<h2><span class="n">05</span> خطة العمل</h2>
+
+<div class="phase"><div class="b">1</div><div>
+<h3>التشخيص الكامل</h3><div class="when">يومان</div>
+<p>الدخول إلى Search Console وPublisher Center ولوحة WordPress، ومراجعة الفهرسة وCWV الميدانية وأخطاء الروابط القديمة، ثم تسليم قائمة إصلاحات نهائية. يتم العمل كله على نسخة احتياطية أو Staging.</p></div></div>
+
+<div class="phase"><div class="b">2</div><div>
+<h3>إصلاحات عاجلة (إعدادات)</h3><div class="when">الأسبوع الأول، حوالي 9 ساعات</div>
+<p>إصلاح تأخر خلاصة RSS وصورتها، ومعالجة حساب z.ai وتوحيد فهرسة الكتّاب، وإصلاح preload صورة الرئيسية، وكاش HTML على Cloudflare، وملف manifest، وسلسلة التحويلات.</p></div></div>
+
+<div class="phase"><div class="b">3</div><div>
+<h3>برمجة القالب</h3><div class="when">الأسبوع الثاني والثالث، حوالي 26 ساعة</div>
+<p>صندوق كاتب وصفحات كتّاب مع Person/ProfilePage schema، وOpinionNewsArticle للرأي، وضبط صور البطاقات، وتقليل CSS وJS المضمنة، وقواعد الصفحات الرقيقة، وتصحيح هيكل العناوين وقالب title. ثم اختبار Rich Results وLighthouse.</p></div></div>
+
+<div class="phase"><div class="b">4</div><div>
+<h3>المحتوى والأرشيف (بالتعاون مع فريق التحرير)</h3><div class="when">الأسبوع الثالث إلى الخامس</div>
+<p>دمج المقالات المكررة مع تحويلات 301، وخطة لتصنيف الأرشيف، ودليل تحريري مختصر يشمل التوقيع والمصادر وسياسة استخدام الذكاء الاصطناعي.</p></div></div>
+
+<div class="phase"><div class="b">5</div><div>
+<h3>القياس والمتابعة</h3><div class="when">بعد 4 أسابيع</div>
+<p>تقرير قبل وبعد من Search Console وبيانات CWV الميدانية.</p></div></div>
+
+<!-- 6 -->
+<h2><span class="n">06</span> التكلفة</h2>
+<div class="price">
+  <div class="pcard"><div class="t">التشخيص الكامل</div><div class="a">$100</div><p>تقرير نهائي بعد الدخول إلى Search Console ولوحة التحكم. يُخصم بالكامل من قيمة التنفيذ عند الاتفاق.</p></div>
+  <div class="pcard main"><div class="t">الإصلاحات التقنية والبرمجية</div><div class="a">$450 – $600</div><p>المرحلتان 2 و3 (حوالي 35 ساعة). السعر النهائي يُحدد بعد التشخيص حسب حالة القالب والسيرفر.</p></div>
+  <div class="pcard"><div class="t">المحتوى والأرشيف</div><div class="a">$150 – $250</div><p>اختيارية، ويمكن أن ينفذها فريق التحرير لديكم بإشرافي ووفق الخطة.</p></div>
+</div>
+
+<table>
+<thead><tr><th>البند</th><th>التفاصيل</th></tr></thead>
+<tbody>
+<tr><td>طريقة الدفع</td><td>50% مقدمًا عند البدء و50% عند التسليم، أو عبر منصة عمل حر.</td></tr>
+<tr><td>المدة الإجمالية</td><td>من 3 إلى 5 أسابيع حسب سرعة تنفيذ مهام المحتوى.</td></tr>
+<tr><td>غير مشمول</td><td>الاشتراكات المدفوعة (مثل باقات Cloudflare أو ترقية الاستضافة) إذا ثبت أنها مطلوبة، وأي إعادة بناء كبيرة للقالب تُسعّر بشكل مستقل.</td></tr>
+<tr><td>الضمانات</td><td>نسخة احتياطية قبل أي تعديل، واختبار كل إصلاح، وتقرير تسليم. لا يمكن ضمان ترتيب معين في جوجل لأنه يخضع لأنظمة جوجل.</td></tr>
+</tbody>
+</table>
+
+<div class="contact">
+  <div><b>إعداد</b><span class="who">عبدالرحمن الديهي</span><br><span style="font-size:9.5pt;opacity:.85">تطوير ووردبريس وسيو تقني</span></div>
+  <div><b>واتساب</b><a class="ltr" href="https://wa.me/201099864648">+20 109 986 4648</a></div>
+  <div><b>البريد الإلكتروني</b><a class="ltr" href="mailto:abdotoon970@gmail.com">abdotoon970@gmail.com</a></div>
+</div>
+
+</body>
+</html>
