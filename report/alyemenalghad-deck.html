@@ -3,126 +3,144 @@
 <head>
 <meta charset="utf-8">
 <title>عرض فحص اليمن الغد</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* خط ثمانية: ضع ملفات OTF الرسمية في مجلد fonts بجانب هذا الملف */
-@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Regular.otf") format("opentype");font-weight:400}
-@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Medium.otf") format("opentype");font-weight:500}
-@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Bold.otf") format("opentype");font-weight:700}
-@font-face{font-family:"Thmanyah Serif Display";src:url("fonts/thmanyahserifdisplay-Bold.otf") format("opentype");font-weight:700}
+/* خط ثمانية بأوزانه */
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Light.woff2") format("woff2");font-weight:300}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Medium.woff2") format("woff2");font-weight:500}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Bold.woff2") format("woff2");font-weight:700}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Black.woff2") format("woff2");font-weight:900}
+@font-face{font-family:"Thmanyah Serif Display";src:url("fonts/thmanyahserifdisplay-Medium.woff2") format("woff2");font-weight:500}
+@font-face{font-family:"Thmanyah Serif Display";src:url("fonts/thmanyahserifdisplay-Bold.woff2") format("woff2");font-weight:700}
+@font-face{font-family:"Thmanyah Serif Display";src:url("fonts/thmanyahserifdisplay-Black.woff2") format("woff2");font-weight:900}
 
-/* ألوان الهوية (مؤقتة: تُستبدل بألوان موقعك) */
+/* ألوان موقع abdulrahmaneldiehy.com */
 :root{
-  --brand:#0F3D3E; --brand-2:#1B5E5F; --brand-soft:#E6EFEF;
-  --accent:#E07A2E; --accent-soft:#FCEFE4;
-  --ink:#16202A; --muted:#5F6B76; --line:#E2E7EA; --soft:#F4F6F7; --paper:#FFFFFF;
-  --bad:#C0352B; --bad-soft:#FBE9E7;
-  --warn:#B86A00; --warn-soft:#FDF1DF;
-  --mid:#2B5C9E; --mid-soft:#E7EFFA;
-  --good:#16794A; --good-soft:#E5F4EC;
-  --font:"Thmanyah Sans","IBM Plex Sans Arabic",system-ui,sans-serif;
-  --display:"Thmanyah Serif Display","Thmanyah Sans","IBM Plex Sans Arabic",serif;
+  --paper:#f6f3ee; --paper-2:#efebe3; --card:#ffffff;
+  --ink:#0b0b09; --ink-2:#3d3f3a; --muted:#6b6f68; --line:#e6e1d8;
+  --emerald:#00bc6d; --emerald-deep:#047a4b; --mint:#a6e9bb; --mint-soft:#e3f6ea; --night:#0e1310;
+  --brand:var(--ink); --accent:var(--emerald-deep);
+  --bad:#d23c41; --bad-soft:#fdeceb;
+  --warn:#b25e00; --warn-soft:#fdf0dc;
+  --mid:#2b5c9e; --mid-soft:#e8eff9;
+  --good:var(--emerald-deep); --good-soft:var(--mint-soft);
+  --font:"Thmanyah Sans",system-ui,sans-serif;
+  --display:"Thmanyah Serif Display","Thmanyah Sans",serif;
 }
 @page{size:1280px 720px;margin:0}
 *{box-sizing:border-box}
-html,body{margin:0;background:#fff;color:var(--ink);font-family:var(--font)}
-.s{width:1280px;height:720px;position:relative;overflow:hidden;padding:56px 72px 60px;break-after:page;background:var(--paper);display:flex;flex-direction:column}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-weight:400}
+.s{width:1280px;height:720px;position:relative;overflow:hidden;padding:52px 72px 62px;break-after:page;background:var(--paper);display:flex;flex-direction:column}
 .s:last-child{break-after:auto}
-.kicker{color:var(--accent);font-weight:700;font-size:17px;letter-spacing:.3px;margin-bottom:6px}
-h1,h2{font-family:var(--display);color:var(--brand);margin:0;line-height:1.3}
-h2{font-size:40px;margin-bottom:10px}
-.lead{font-size:21px;color:var(--muted);line-height:1.7;margin:0 0 22px;max-width:1000px}
+.kicker{display:flex;align-items:center;gap:8px;color:var(--ink-2);font-weight:500;font-size:17px;margin-bottom:8px}
+.kicker::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--emerald);flex:none}
+h1,h2{font-family:var(--font);font-weight:900;color:var(--ink);margin:0;line-height:1.3;letter-spacing:-.3px}
+h2{font-size:42px;margin-bottom:10px}
+h1 em,h2 em{font-style:normal;color:var(--emerald)}
+.lead{font-size:20px;font-weight:300;color:var(--ink-2);line-height:1.75;margin:0 0 22px;max-width:1040px}
 .ltr{direction:ltr;unicode-bidi:isolate}
-b{color:var(--brand)}
-.foot{position:absolute;bottom:22px;right:72px;left:72px;display:flex;justify-content:space-between;font-size:13px;color:#9AA4AD;border-top:1px solid var(--line);padding-top:10px}
-.foot .pg{font-weight:700;color:var(--brand)}
+b{color:var(--ink);font-weight:700}
+.foot{position:absolute;bottom:22px;right:72px;left:72px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.foot .pg{font-weight:700;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 12px}
 
 /* الغلاف والختام */
-.dark{background:var(--brand);color:#fff}
+.dark{background:var(--night);color:#fff}
 .dark h1,.dark h2,.dark b{color:#fff}
-.dark .foot{border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.55)}
-.dark .foot .pg{color:#fff}
-.cover h1{font-size:62px;line-height:1.2;margin:18px 0 18px}
+.dark .foot{border-color:rgba(255,255,255,.14);color:rgba(255,255,255,.55)}
+.dark .foot .pg{color:#fff;background:transparent;border-color:rgba(255,255,255,.25)}
+.green{background:var(--emerald);color:var(--ink)}
+.green .foot{border-color:rgba(0,0,0,.15);color:rgba(0,0,0,.6)}
+.cover h1{font-size:60px;line-height:1.25;margin:20px 0 18px}
 .pill{display:inline-block;padding:6px 18px;border-radius:999px;font-weight:700;font-size:16px}
-.pill.acc{background:var(--accent);color:#fff}
-.deco{position:absolute;left:-120px;top:-120px;width:520px;height:520px;border-radius:50%;border:70px solid rgba(255,255,255,.05)}
-.deco2{position:absolute;left:150px;bottom:-200px;width:380px;height:380px;border-radius:50%;background:rgba(224,122,46,.12)}
+.pill.acc{background:var(--emerald);color:var(--ink)}
+.deco{position:absolute;left:-160px;top:-160px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(0,188,109,.22),rgba(0,188,109,0) 70%)}
+.deco2{display:none}
+.portrait{position:absolute;left:72px;top:64px;width:330px;height:420px;border-radius:32px;object-fit:cover;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.badge{position:absolute;left:96px;top:440px;background:rgba(255,255,255,.92);color:var(--ink);border-radius:16px;padding:10px 16px;font-size:14px;display:flex;gap:10px;align-items:center}
+.badge i{width:10px;height:10px;border-radius:50%;background:var(--emerald);display:inline-block}
 
 /* شبكات وبطاقات */
-.grid{display:grid;gap:18px}
+.grid{display:grid;gap:16px}
 .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
-.card{background:var(--soft);border-radius:18px;padding:22px 24px}
-.card h3{margin:0 0 6px;font-size:21px;color:var(--brand)}
-.card p{margin:0;font-size:16.5px;line-height:1.65;color:var(--muted)}
-.big{font-size:54px;font-weight:700;color:var(--brand);line-height:1.1;font-family:var(--font)}
-.big small{font-size:22px;color:var(--muted);font-weight:500}
-.lbl{font-size:16px;color:var(--muted);margin-top:6px;line-height:1.5}
-.ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.ico svg{width:26px;height:26px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px 24px}
+.card h3{margin:0 0 6px;font-size:21px;font-weight:700;color:var(--ink)}
+.card p{margin:0;font-size:16.5px;line-height:1.7;color:var(--ink-2)}
+.card.ink{background:var(--night);border-color:var(--night)}.card.ink .big,.card.ink h3{color:#fff}.card.ink .lbl,.card.ink p{color:rgba(255,255,255,.7)}
+.card.mint{background:var(--mint-soft);border-color:#c5ebd2}
+.big{font-family:var(--display);font-size:54px;font-weight:700;color:var(--ink);line-height:1.1}
+.big small{font-family:var(--font);font-size:22px;color:var(--emerald-deep);font-weight:700}
+.lbl{font-size:15.5px;color:var(--muted);margin-top:6px;line-height:1.55}
+.ico{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.ico svg{width:24px;height:24px}
 
 /* الحالة */
-.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-weight:700;font-size:15px}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-weight:700;font-size:14.5px}
 .t-bad{background:var(--bad-soft);color:var(--bad)}
 .t-warn{background:var(--warn-soft);color:var(--warn)}
 .t-mid{background:var(--mid-soft);color:var(--mid)}
-.t-good{background:var(--good-soft);color:var(--good)}
+.t-good{background:var(--mint-soft);color:var(--emerald-deep)}
 
 /* شريحة المشكلة */
-.prob{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;flex:1;align-items:start}
-.panel{border-radius:18px;padding:20px 24px;margin-bottom:14px}
-.panel h4{margin:0 0 6px;font-size:17px}
-.panel p{margin:0;font-size:17.5px;line-height:1.7}
-.p-what{background:var(--soft)}
-.p-why{background:var(--accent-soft)} .p-why h4{color:var(--accent)}
-.p-fix{background:var(--good-soft)} .p-fix h4{color:var(--good)}
-.p-what h4{color:var(--brand)}
-.fig{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px}
-.fig .cap{font-size:15px;color:var(--muted);margin-top:12px;line-height:1.6}
+.prob{display:grid;grid-template-columns:1.05fr 1fr;gap:36px;flex:1;align-items:start}
+.panel{border-radius:20px;padding:16px 22px;margin-bottom:12px;border:1px solid var(--line);background:var(--card)}
+.panel h4{margin:0 0 4px;font-size:16px;font-weight:700}
+.panel p{margin:0;font-size:17px;line-height:1.7;color:var(--ink-2)}
+.p-what h4{color:var(--ink)}
+.p-why{border-right:5px solid var(--warn)} .p-why h4{color:var(--warn)}
+.p-fix{background:var(--mint-soft);border-color:#c5ebd2} .p-fix h4{color:var(--emerald-deep)}
+.fig{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px 28px}
+.fig .cap{font-size:14.5px;color:var(--muted);margin-top:12px;line-height:1.65}
 
 /* أعمدة أفقية */
 .bars{display:flex;flex-direction:column;gap:11px}
-.bar{display:grid;grid-template-columns:150px 1fr 70px;align-items:center;gap:12px;font-size:16px}
-.bar .tr{height:22px;background:var(--soft);border-radius:4px;overflow:hidden}
-.bar .fl{height:100%;background:var(--brand);border-radius:4px}
-.bar .fl.hl{background:var(--accent)}
+.bar{display:grid;grid-template-columns:150px 1fr 64px;align-items:center;gap:12px;font-size:15.5px}
+.bar .tr{height:22px;background:var(--paper-2);border-radius:6px;overflow:hidden}
+.bar .fl{height:100%;background:var(--ink-2);border-radius:6px}
+.bar .fl.hl{background:var(--emerald)}
 .bar .v{font-weight:700;text-align:left;direction:ltr;color:var(--ink)}
 /* أعمدة رأسية */
 .cols{display:flex;align-items:flex-end;gap:10px;height:230px;border-bottom:1px solid var(--line);padding-top:24px}
 .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px}
-.col .c{width:100%;max-width:46px;background:var(--brand);border-radius:4px 4px 0 0}
-.col .c.hl{background:var(--accent)}
+.col .c{width:100%;max-width:46px;background:var(--ink-2);border-radius:6px 6px 0 0}
+.col .c.hl{background:var(--emerald)}
 .col .n{font-size:13.5px;font-weight:700;color:var(--ink)}
 .xl{display:flex;gap:10px}.xl span{flex:1;text-align:center;font-size:13.5px;color:var(--muted);padding-top:6px}
 
 .list{margin:0;padding:0;list-style:none}
 .list li{display:flex;gap:12px;align-items:flex-start;font-size:18px;line-height:1.6;padding:8px 0;border-bottom:1px solid var(--line)}
 .list li:last-child{border:0}
-.dot{flex:none;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-top:2px}
+.dot{flex:none;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-top:2px}
 
-table{width:100%;border-collapse:separate;border-spacing:0;font-size:16.5px}
-th{background:var(--brand);color:#fff;text-align:right;padding:11px 14px;font-weight:700}
-th:first-child{border-radius:0 12px 0 0}th:last-child{border-radius:12px 0 0 0}
-td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:16.5px;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+th{background:var(--night);color:#fff;text-align:right;padding:12px 16px;font-weight:700}
+td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
 
 .tl{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:10px}
-.step{background:var(--soft);border-radius:18px;padding:20px;position:relative}
-.step .num{width:42px;height:42px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:19px;margin-bottom:12px}
-.step .when{color:var(--accent);font-weight:700;font-size:15px}
-.step h3{font-size:20px;color:var(--brand);margin:4px 0 8px}
-.step p{font-size:15.5px;color:var(--muted);line-height:1.6;margin:0}
+.step{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;position:relative}
+.step .num{width:42px;height:42px;border-radius:50%;background:var(--night);color:var(--emerald);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;margin-bottom:12px}
+.step .when{color:var(--emerald-deep);font-weight:700;font-size:15px}
+.step h3{font-size:20px;font-weight:700;color:var(--ink);margin:4px 0 8px}
+.step p{font-size:15.5px;color:var(--ink-2);line-height:1.6;margin:0}
 
-.price{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;display:flex;flex-direction:column}
-.price.main{border:3px solid var(--brand);background:var(--brand-soft)}
-.price .amt{font-size:46px;font-weight:700;color:var(--accent);direction:ltr;text-align:right;margin:8px 0}
-.price h3{margin:0;font-size:22px;color:var(--brand)}
-.price p{font-size:16px;color:var(--muted);line-height:1.6;margin:0}
-.ribbon{position:absolute;top:-14px;left:24px;background:var(--accent);color:#fff;font-weight:700;font-size:13px;padding:4px 12px;border-radius:999px}
+.price{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:26px;display:flex;flex-direction:column}
+.price.main{background:var(--night);border-color:var(--night)}
+.price.main h3,.price.main p{color:#fff}
+.price .amt{font-family:var(--display);font-size:52px;font-weight:700;color:var(--ink);direction:ltr;text-align:right;margin:8px 0}
+.price.main .amt{color:var(--emerald)}
+.price h3{margin:0;font-size:22px;font-weight:700;color:var(--ink)}
+.price p{font-size:16px;color:var(--ink-2);line-height:1.6;margin:0}
+.ribbon{position:absolute;top:-14px;left:24px;background:var(--emerald);color:var(--ink);font-weight:700;font-size:13px;padding:4px 12px;border-radius:999px}
 
-.verdict{display:flex;gap:16px;align-items:center;background:var(--brand);color:#fff;border-radius:18px;padding:22px 28px;margin-top:auto}
-.verdict .t{font-size:22px;line-height:1.6}
-.verdict b{color:#fff}
+.verdict{display:flex;gap:16px;align-items:center;background:var(--night);color:#fff;border-radius:24px;padding:22px 28px;margin-top:auto}
+.verdict .t{font-size:21px;line-height:1.65;font-weight:400}
+.verdict b{color:var(--emerald)}
 .note{font-size:14px;color:var(--muted)}
 .roomy .card h3{font-size:23px;margin-bottom:10px}.roomy .card p{font-size:18px;line-height:1.75}
+.cbtn{display:flex;align-items:center;gap:14px;border-radius:18px;padding:14px 20px;text-decoration:none;color:var(--ink);background:rgba(255,255,255,.35)}
+.cbtn.blk{background:var(--night);color:#fff}
+.cbtn small{display:block;font-size:13px;opacity:.75}
+.cbtn strong{font-size:20px;font-weight:700}
 </style>
 </head>
 <body>
@@ -130,22 +148,24 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 1 الغلاف -->
 <section class="s dark cover">
   <div class="deco"></div><div class="deco2"></div>
-  <div style="margin-top:70px;position:relative">
+  <img class="portrait" src="img/portrait.webp" alt="">
+  <div class="badge"><i></i><div><b style="color:var(--ink)">عبدالرحمن الديهي</b><br><span style="color:var(--muted)">مطوّر ووردبريس وسيو تقني</span></div></div>
+  <div style="margin-top:50px;position:relative;max-width:720px">
     <span class="pill acc">تقرير فحص الموقع</span>
-    <h1>موقع اليمن الغد<br>ما الذي يمنعه من الصدارة؟ وكيف نصلحه</h1>
-    <p style="font-size:23px;opacity:.85;max-width:780px;line-height:1.7;margin:0">فحص شامل للموقع من الداخل والخارج، بلغة واضحة، مع خطة عمل وتكلفة.</p>
+    <h1>موقع اليمن الغد<br>ما الذي يمنعه من <em>الصدارة؟</em></h1>
+    <p style="font-size:22px;font-weight:300;opacity:.85;line-height:1.7;margin:0">فحص شامل للموقع من الداخل والخارج، بلغة واضحة، مع خطة عمل وتكلفة.</p>
   </div>
   <div style="margin-top:auto;display:flex;gap:70px;font-size:18px;position:relative;padding-bottom:30px">
     <div><div style="opacity:.6;font-size:14px">الموقع</div><div class="ltr">alyemenalghad.com</div></div>
     <div><div style="opacity:.6;font-size:14px">فترة الفحص</div>12 – 14 نوفمبر 2026</div>
-    <div><div style="opacity:.6;font-size:14px">إعداد</div><div style="font-family:var(--display);font-size:22px">عبدالرحمن الديهي</div></div>
+    <div><div style="opacity:.6;font-size:14px">الموقع الشخصي</div><div class="ltr">abdulrahmaneldiehy.com</div></div>
   </div>
 </section>
 
 <!-- 2 الخلاصة -->
 <section class="s">
   <div class="kicker">الخلاصة في دقيقة</div>
-  <h2>الموقع سليم من الداخل، والعائق الحقيقي في «الثقة» و«المحتوى»</h2>
+  <h2>الموقع سليم من الداخل، والعائق في <em>«الثقة» و«المحتوى»</em></h2>
   <p class="lead">لو تخيلنا الموقع سيارة: المحرك (البرمجة والسرعة) في حالة جيدة، لكن أوراق السيارة ولوحتها (من يكتب الأخبار، وتنظيم المحتوى) هي ما يجعل جوجل يتردد في تقديمها في الصفوف الأولى.</p>
   <div class="grid g3">
     <div class="card"><span class="tag t-good">جيد</span><h3 style="margin-top:12px">السرعة والبرمجة</h3><p>الصفحات تفتح في حوالي ثانيتين على موبايل متوسط، بدون اهتزاز في التصميم، والبيانات التي يقرأها جوجل موجودة.</p></div>
@@ -159,11 +179,11 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 3 حجم العمل -->
 <section class="s">
   <div class="kicker">ماذا فحصنا</div>
-  <h2>فحص فعلي للموقع، وليس انطباعًا عامًا</h2>
+  <h2>فحص فعلي للموقع، <em>وليس انطباعًا عامًا</em></h2>
   <p class="lead">كل رقم في هذا التقرير جاء من قراءة مباشرة لصفحات الموقع وملفاته، وأُعيد الفحص على يومين مختلفين للتأكد من النتائج.</p>
   <div class="grid g4">
-    <div class="card"><div class="big">6,607</div><div class="lbl">رابط مقال حللنا تاريخه وقسمه وموضوعه</div></div>
-    <div class="card"><div class="big">120</div><div class="lbl">مقالًا قرأناها بالكامل: الكاتب، الصورة، العنوان، البيانات المخفية</div></div>
+    <div class="card ink"><div class="big">6,607</div><div class="lbl">رابط مقال حللنا تاريخه وقسمه وموضوعه</div></div>
+    <div class="card mint"><div class="big">120</div><div class="lbl">مقالًا قرأناها بالكامل: الكاتب، الصورة، العنوان، البيانات المخفية</div></div>
     <div class="card"><div class="big">19</div><div class="lbl">خريطة موقع راجعناها، إضافة لخريطة الأخبار وملف RSS</div></div>
     <div class="card"><div class="big">6</div><div class="lbl">اختبارات سرعة على موبايل متوسط وإنترنت 4G بطيء</div></div>
     <div class="card"><div class="big">2</div><div class="lbl">جولتا فحص (12 و14 نوفمبر) لرصد ما تغير</div></div>
@@ -177,7 +197,7 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 4 الموقع بالأرقام -->
 <section class="s">
   <div class="kicker">الموقع بالأرقام</div>
-  <h2>6,607 مقالًا منشورًا، ونصفها تقريبًا ليس أخبارًا</h2>
+  <h2>6,607 مقالًا، <em>ونصفها تقريبًا ليس أخبارًا</em></h2>
   <div class="grid g2" style="gap:30px;margin-top:10px">
     <div class="fig">
       <div style="font-weight:700;font-size:18px;margin-bottom:16px">عدد المقالات في كل قسم</div>
@@ -217,16 +237,16 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 5 السرعة -->
 <section class="s">
   <div class="kicker">السرعة وتجربة القارئ</div>
-  <h2>الموقع سريع، وهذه نقطة قوة واضحة</h2>
+  <h2>الموقع سريع، <em>وهذه نقطة قوة</em></h2>
   <p class="lead">جرّبنا فتح الصفحات كما يفتحها قارئ عادي بموبايل متوسط وإنترنت 4G بطيء، 3 مرات لكل صفحة. جوجل يعتبر الصفحة «جيدة» إذا ظهر محتواها الأساسي في أقل من 2.5 ثانية.</p>
   <div class="grid g4">
-    <div class="card" style="background:var(--good-soft)"><div class="big">2.1<small> ث</small></div><div class="lbl">ظهور المحتوى الأساسي في الرئيسية</div><span class="tag t-good" style="margin-top:10px">جيد</span></div>
-    <div class="card" style="background:var(--good-soft)"><div class="big">1.4<small> ث</small></div><div class="lbl">ظهور المحتوى الأساسي في صفحة الخبر</div><span class="tag t-good" style="margin-top:10px">ممتاز</span></div>
-    <div class="card" style="background:var(--good-soft)"><div class="big">0</div><div class="lbl">اهتزاز التصميم أثناء التحميل</div><span class="tag t-good" style="margin-top:10px">ممتاز</span></div>
-    <div class="card" style="background:var(--good-soft)"><div class="big">285<small> KB</small></div><div class="lbl">حجم صفحة الخبر كاملة (18 طلبًا فقط)</div><span class="tag t-good" style="margin-top:10px">خفيف</span></div>
+    <div class="card mint"><div class="big">2.1<small> ث</small></div><div class="lbl">ظهور المحتوى الأساسي في الرئيسية</div><span class="tag t-good" style="margin-top:10px">جيد</span></div>
+    <div class="card mint"><div class="big">1.4<small> ث</small></div><div class="lbl">ظهور المحتوى الأساسي في صفحة الخبر</div><span class="tag t-good" style="margin-top:10px">ممتاز</span></div>
+    <div class="card mint"><div class="big">0</div><div class="lbl">اهتزاز التصميم أثناء التحميل</div><span class="tag t-good" style="margin-top:10px">ممتاز</span></div>
+    <div class="card mint"><div class="big">285<small> KB</small></div><div class="lbl">حجم صفحة الخبر كاملة (18 طلبًا فقط)</div><span class="tag t-good" style="margin-top:10px">خفيف</span></div>
   </div>
   <div class="grid g2" style="margin-top:20px">
-    <div class="card"><h3>الصفحة الرئيسية</h3><p>حجمها الكامل <b>574KB</b> في <b>27 طلبًا</b> فقط، واستجابة السيرفر الأولى حوالي <b>0.3 ثانية</b> في اختباراتنا.</p></div>
+    <div class="card"><h3>الصفحة الرئيسية</h3><p>حجمها الكامل <b>574KB</b> في <b>27 طلبًا</b> فقط، واستجابة السيرفر الأولى حوالي <b><span class="ltr">0.3</span> ثانية</b> في اختباراتنا.</p></div>
     <div class="card" style="background:var(--warn-soft)"><h3>فرصة تحسين</h3><p>الرئيسية تحمّل أولًا صورة قديمة من أكتوبر بدل صورة الخبر الحالي، وهذا يؤخر ظهورها بلا داعٍ (الشريحة 12).</p></div>
   </div>
   <div class="foot"><span>قياس معملي. بيانات الزوار الفعلية تظهر في Search Console</span><span class="pg">05</span></div>
@@ -235,7 +255,7 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 6 نقاط القوة -->
 <section class="s">
   <div class="kicker">ما هو جيد</div>
-  <h2>أساس قوي نبني عليه</h2>
+  <h2>أساس قوي <em>نبني عليه</em></h2>
   <p class="lead">الموقع تحسن كثيرًا منذ مايو 2026، حين كان يعمل بقالب جاهز (Jannah). هذه نقاط يجب الحفاظ عليها أثناء أي تعديل:</p>
   <div class="grid g3">
     <div class="card"><div class="ico" style="background:var(--good-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="#16794A" stroke-width="2.2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><h3>آمن ومنظم</h3><p>اتصال مشفر HTTPS، وكل العناوين القديمة (ar وye وartic وwww) تحوّل للموقع الأساسي بشكل صحيح.</p></div>
@@ -251,7 +271,7 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 7 خريطة المشاكل -->
 <section class="s">
   <div class="kicker">خريطة المشاكل</div>
-  <h2>14 نقطة تحسين، مرتبة حسب تأثيرها</h2>
+  <h2>14 نقطة تحسين، <em>مرتبة حسب تأثيرها</em></h2>
   <p class="lead">رتبناها مثل إشارة المرور: الأحمر أولًا لأنه الأكثر تأثيرًا على الظهور في الأخبار.</p>
   <div class="grid g3" style="gap:22px">
     <div class="card" style="background:var(--bad-soft)"><span class="tag t-bad">● مؤثرة جدًا</span><div class="big" style="color:var(--bad);margin-top:10px">5</div>
@@ -267,7 +287,7 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 8 الكاتب -->
 <section class="s">
   <div class="kicker"><span class="tag t-bad">مؤثرة جدًا</span>&nbsp; المشكلة 1</div>
-  <h2>جوجل لا يعرف من كتب الأخبار</h2>
+  <h2>جوجل <em>لا يعرف</em> من كتب الأخبار</h2>
   <div class="prob">
     <div>
       <div class="panel p-what"><h4>ماذا وجدنا؟</h4><p>من 120 مقالًا فحصناها، <b>108 مقالات</b> منشورة باسم «هيئة تحرير اليمن الغد»، بدون اسم صحفي أو صورة أو نبذة. كما أن اسم الكاتب مكتوب في الصفحة كعنوان فرعي، وهذا يربك ترتيب الصفحة.</p></div>
@@ -277,14 +297,14 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
     <div class="fig" style="text-align:center">
       <svg viewBox="0 0 220 220" width="300" height="300" style="display:block;margin:0 auto">
         <circle cx="110" cy="110" r="80" fill="none" stroke="var(--line)" stroke-width="34"/>
-        <circle cx="110" cy="110" r="80" fill="none" stroke="var(--accent)" stroke-width="34" stroke-dasharray="452.4 502.7" transform="rotate(-90 110 110)"/>
-        <circle cx="110" cy="110" r="80" fill="none" stroke="var(--brand)" stroke-width="34" stroke-dasharray="48.3 502.7" stroke-dashoffset="-454.4" transform="rotate(-90 110 110)"/>
-        <text x="110" y="112" text-anchor="middle" font-size="44" font-weight="700" fill="var(--ink)" font-family="IBM Plex Sans Arabic">90%</text>
-        <text x="110" y="140" text-anchor="middle" font-size="14" fill="var(--muted)" font-family="IBM Plex Sans Arabic">بلا اسم صحفي</text>
+        <circle cx="110" cy="110" r="80" fill="none" stroke="var(--emerald)" stroke-width="34" stroke-dasharray="452.4 502.7" transform="rotate(-90 110 110)"/>
+        <circle cx="110" cy="110" r="80" fill="none" stroke="var(--ink-2)" stroke-width="34" stroke-dasharray="48.3 502.7" stroke-dashoffset="-454.4" transform="rotate(-90 110 110)"/>
+        <text x="110" y="112" text-anchor="middle" font-size="44" font-weight="700" fill="var(--ink)" font-family="Thmanyah Sans">90%</text>
+        <text x="110" y="140" text-anchor="middle" font-size="14" fill="var(--muted)" font-family="Thmanyah Sans">بلا اسم صحفي</text>
       </svg>
       <div style="display:flex;justify-content:center;gap:26px;font-size:16px;margin-top:6px">
-        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--accent)"></span> هيئة التحرير: 108</span>
-        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--brand)"></span> صحفي باسمه: 11</span>
+        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--emerald)"></span> هيئة التحرير: 108</span>
+        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--ink-2)"></span> صحفي باسمه: 11</span>
       </div>
       <div class="cap">في الأخبار الحديثة 82% بلا اسم، وفي الأرشيف 98%. وهناك 5 كتّاب فقط لهم صفحات، بينما صفحة «هيئة التحرير» نفسها مخفية عن جوجل.</div>
     </div>
@@ -295,7 +315,7 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 9 التكرار -->
 <section class="s">
   <div class="kicker"><span class="tag t-bad">مؤثرة جدًا</span>&nbsp; المشكلة 2</div>
-  <h2>صفحات كثيرة تتنافس على نفس السؤال</h2>
+  <h2>صفحات كثيرة <em>تتنافس على نفس السؤال</em></h2>
   <div class="prob">
     <div>
       <div class="panel p-what"><h4>ماذا وجدنا؟</h4><p>بدل صفحة واحدة قوية لكل موضوع، يكتب الموقع مقالًا جديدًا كل مرة. مثلًا <b>6 صفحات</b> عن «تردد قناة طيور الجنة»، منها 3 نُشرت خلال 4 دقائق.</p></div>
@@ -321,7 +341,7 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 10 الأرشيف -->
 <section class="s">
   <div class="kicker"><span class="tag t-bad">مؤثرة جدًا</span>&nbsp; المشكلة 3</div>
-  <h2>أرشيف قديم يشتت هوية الموقع الإخبارية</h2>
+  <h2>أرشيف قديم <em>يشتت هوية الموقع</em></h2>
   <div class="prob">
     <div>
       <div class="panel p-what"><h4>ماذا وجدنا؟</h4><p>حوالي <b>2,750 مقالًا</b> من 2017 إلى 2022، ومحتوى مثل تفسير الأحلام وجداول امتحانات مصر 2022 والترددات. و47% من كل المقالات في أقسام غير إخبارية.</p></div>
@@ -345,7 +365,7 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 11 الصور والنشاط -->
 <section class="s">
   <div class="kicker"><span class="tag t-bad">مؤثرة جدًا</span>&nbsp; المشكلتان 4 و5</div>
-  <h2>صور أصغر من المطلوب، وأخبار قليلة يوميًا</h2>
+  <h2>صور أصغر من المطلوب، <em>وأخبار قليلة يوميًا</em></h2>
   <div class="grid g2" style="gap:30px;flex:1">
     <div class="fig">
       <h3 style="margin:0 0 6px;color:var(--brand);font-size:22px">الصور وواجهة Discover</h3>
@@ -372,7 +392,7 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 12 المشاكل المهمة -->
 <section class="s">
   <div class="kicker"><span class="tag t-warn">مهمة</span>&nbsp; مشاكل تقنية في الإعدادات</div>
-  <h2>4 إصلاحات سريعة لها أثر مباشر</h2>
+  <h2>4 إصلاحات سريعة <em>لها أثر مباشر</em></h2>
   <p class="lead">مشاكل في الإعدادات وليست في المحتوى، وحلها سريع نسبيًا ونتائجها تظهر خلال أيام.</p>
   <div class="grid g2 roomy" style="flex:1;grid-auto-rows:1fr;margin-bottom:30px">
     <div class="card"><h3>1. الرئيسية تحمّل صورة قديمة أولًا</h3><p>الصفحة تطلب من المتصفح تحميل صورة خبر من شهر أكتوبر قبل أي شيء، بينما الخبر المعروض اليوم مختلف. النتيجة: تأخير بلا داعٍ.<br><b>الحل:</b> يتم اختيار صورة الخبر الأول تلقائيًا.</p></div>
@@ -386,7 +406,7 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 13 التحسينات -->
 <section class="s">
   <div class="kicker"><span class="tag t-mid">تحسينات</span>&nbsp; تفاصيل فنية أصغر</div>
-  <h2>5 تحسينات تكمل الصورة</h2>
+  <h2>5 تحسينات <em>تكمل الصورة</em></h2>
   <table style="margin-top:14px">
     <thead><tr><th style="width:28%">النقطة</th><th>ماذا تعني ببساطة</th><th style="width:22%">الأثر</th></tr></thead>
     <tbody>
@@ -403,11 +423,11 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 14 ما اتحل -->
 <section class="s">
   <div class="kicker">متابعة أثناء الفحص</div>
-  <h2>ما تغيّر بين جولتي الفحص</h2>
+  <h2>ما تغيّر <em>بين جولتي الفحص</em></h2>
   <p class="lead">أعدنا الفحص بعد يومين، ورصدنا تحسنين تم تنفيذهما. هذا يؤكد أن التقرير مبني على حالة الموقع الحالية بدقة.</p>
   <div class="grid g2">
-    <div class="card" style="background:var(--good-soft)"><span class="tag t-good">✓ تم حله</span><h3 style="margin-top:12px">حساب كاتب باسم «z.ai»</h3><p>كان ظاهرًا لجوجل وعليه مقالات منشورة، وهذه إشارة على محتوى آلي. الآن الصفحة محذوفة نهائيًا (410) وخارج خريطة الكتّاب.</p></div>
-    <div class="card" style="background:var(--good-soft)"><span class="tag t-good">✓ سليم</span><h3 style="margin-top:12px">تحويل نسخة http</h3><p>رُصد سابقًا خطأ 500 عند فتح الموقع بدون https. حاليًا كل الروابط تحوّل بشكل صحيح، حتى عند فحصها بصفة زاحف جوجل.</p></div>
+    <div class="card mint"><span class="tag t-good">✓ تم حله</span><h3 style="margin-top:12px">حساب كاتب باسم «z.ai»</h3><p>كان ظاهرًا لجوجل وعليه مقالات منشورة، وهذه إشارة على محتوى آلي. الآن الصفحة محذوفة نهائيًا (410) وخارج خريطة الكتّاب.</p></div>
+    <div class="card mint"><span class="tag t-good">✓ سليم</span><h3 style="margin-top:12px">تحويل نسخة http</h3><p>رُصد سابقًا خطأ 500 عند فتح الموقع بدون https. حاليًا كل الروابط تحوّل بشكل صحيح، حتى عند فحصها بصفة زاحف جوجل.</p></div>
   </div>
   <div class="card" style="margin-top:18px"><h3>ملاحظة على مقالات z.ai</h3><p>يُنصح بمراجعة المقالات التي كانت منشورة بهذا الحساب: هل نُقلت لكاتب آخر أم ما زالت منشورة بنفس المحتوى؟ والتأكد من أنها مراجعة تحريريًا.</p></div>
   <div class="foot"><span>فحص 12 نوفمبر مقابل 14 نوفمبر 2026</span><span class="pg">14</span></div>
@@ -416,11 +436,11 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 15 الخلفية -->
 <section class="s">
   <div class="kicker">خلفية مهمة</div>
-  <h2>المشكلة أقدم من القالب الحالي</h2>
+  <h2>المشكلة <em>أقدم من القالب الحالي</em></h2>
   <div class="grid g3" style="margin-top:14px">
     <div class="card"><div class="kicker" style="font-size:15px">سبتمبر 2025</div><h3>أول شكوى معلنة</h3><p>نقاش باسم الموقع في منتدى جوجل عن تراجع الظهور، وأشار مشاركون إلى كثافة الإعلانات وقتها.</p></div>
     <div class="card"><div class="kicker" style="font-size:15px">مايو 2026</div><h3>شكوى ثانية</h3><p>تراجع في Google News وأهم الأخبار وتأخر الفهرسة، والموقع وقتها بقالب Jannah وإضافة Rank Math.</p></div>
-    <div class="card" style="background:var(--brand-soft)"><div class="kicker" style="font-size:15px">نوفمبر 2026</div><h3>الوضع الحالي</h3><p>قالب مخصص وسريع، وإعلانات أخف، وصفحات شفافية كاملة. المشاكل التقنية القديمة أغلبها انتهت.</p></div>
+    <div class="card mint"><div class="kicker" style="font-size:15px">نوفمبر 2026</div><h3>الوضع الحالي</h3><p>قالب مخصص وسريع، وإعلانات أخف، وصفحات شفافية كاملة. المشاكل التقنية القديمة أغلبها انتهت.</p></div>
   </div>
   <div class="verdict" style="margin-top:28px"><div class="t">لذلك نرجّح أن العائق الأكبر المتبقي هو <b>الثقة والمحتوى</b> وليس الكود. حسم السبب بنسبة 100% يحتاج الاطلاع على <b>Search Console</b>، فهو الصندوق الأسود الذي يسجل كل ما يراه جوجل.</div></div>
   <div class="foot"><span>المصدر: منتديات Google Search Central وPublisher Center</span><span class="pg">15</span></div>
@@ -429,7 +449,7 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 16 الخطة -->
 <section class="s">
   <div class="kicker">خطة العمل</div>
-  <h2>5 مراحل واضحة خلال 3 إلى 5 أسابيع</h2>
+  <h2>5 مراحل واضحة <em>خلال 3 إلى 5 أسابيع</em></h2>
   <div class="tl">
     <div class="step"><div class="num">1</div><div class="when">يومان</div><h3>التشخيص الكامل</h3><p>الدخول إلى Search Console ولوحة الموقع، وحسم السبب بالأرقام، وقائمة إصلاحات نهائية.</p></div>
     <div class="step"><div class="num">2</div><div class="when">الأسبوع 1</div><h3>إصلاحات سريعة</h3><p>صورة الرئيسية، والحفظ المؤقت، وملف RSS، وصفحات الكتّاب، والأخطاء الصغيرة.</p></div>
@@ -444,7 +464,7 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 17 التكلفة -->
 <section class="s">
   <div class="kicker">التكلفة</div>
-  <h2>استثمار واضح على مراحل</h2>
+  <h2>استثمار واضح <em>على مراحل</em></h2>
   <p class="lead">تبدأون بالتشخيص فقط، ثم تقررون. وإن استكملنا التنفيذ، تُخصم قيمة التشخيص بالكامل.</p>
   <div class="grid g3" style="gap:22px">
     <div class="price"><h3>التشخيص الكامل</h3><div class="amt">$50</div><p>تحليل Search Console ولوحة التحكم، وحسم السبب، وقائمة إصلاحات نهائية بالسعر الدقيق.</p><p style="margin-top:auto;padding-top:14px;color:var(--good);font-weight:700">يُخصم من التنفيذ</p></div>
@@ -462,15 +482,15 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 <!-- 18 المطلوب -->
 <section class="s">
   <div class="kicker">للبدء</div>
-  <h2>ما نحتاجه منكم</h2>
+  <h2>ما نحتاجه <em>منكم</em></h2>
   <div class="grid g2" style="gap:30px;margin-top:10px">
     <ul class="list">
-      <li><span class="dot" style="background:var(--brand);color:#fff">1</span><div><b>صلاحية مشاهدة Search Console</b><br><span style="color:var(--muted);font-size:16px">للنطاق الحالي والنطاقات القديمة، تكفي صلاحية قراءة فقط.</span></div></li>
-      <li><span class="dot" style="background:var(--brand);color:#fff">2</span><div><b>حساب على لوحة ووردبريس</b><br><span style="color:var(--muted);font-size:16px">بصلاحية مدير، ويمكن إلغاؤه فور التسليم.</span></div></li>
-      <li><span class="dot" style="background:var(--brand);color:#fff">3</span><div><b>دخول Cloudflare والاستضافة</b><br><span style="color:var(--muted);font-size:16px">لإعدادات الحفظ المؤقت والتحويلات.</span></div></li>
-      <li><span class="dot" style="background:var(--brand);color:#fff">4</span><div><b>Google Publisher Center</b><br><span style="color:var(--muted);font-size:16px">لمعرفة حالة الموقع داخل Google News.</span></div></li>
+      <li><span class="dot" style="background:var(--night);color:var(--emerald)">1</span><div><b>صلاحية مشاهدة Search Console</b><br><span style="color:var(--muted);font-size:16px">للنطاق الحالي والنطاقات القديمة، تكفي صلاحية قراءة فقط.</span></div></li>
+      <li><span class="dot" style="background:var(--night);color:var(--emerald)">2</span><div><b>حساب على لوحة ووردبريس</b><br><span style="color:var(--muted);font-size:16px">بصلاحية مدير، ويمكن إلغاؤه فور التسليم.</span></div></li>
+      <li><span class="dot" style="background:var(--night);color:var(--emerald)">3</span><div><b>دخول Cloudflare والاستضافة</b><br><span style="color:var(--muted);font-size:16px">لإعدادات الحفظ المؤقت والتحويلات.</span></div></li>
+      <li><span class="dot" style="background:var(--night);color:var(--emerald)">4</span><div><b>Google Publisher Center</b><br><span style="color:var(--muted);font-size:16px">لمعرفة حالة الموقع داخل Google News.</span></div></li>
     </ul>
-    <div class="card" style="background:var(--brand-soft)">
+    <div class="card mint">
       <h3>ما الذي ستحصلون عليه</h3>
       <ul class="list" style="margin-top:6px">
         <li style="font-size:17px">✓ تقرير تشخيص نهائي بالأرقام من جوجل نفسه</li>
@@ -485,19 +505,21 @@ td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line
 </section>
 
 <!-- 19 التواصل -->
-<section class="s dark">
-  <div class="deco"></div><div class="deco2"></div>
-  <div style="margin:auto 0;position:relative">
-    <span class="pill acc">شكرًا لوقتكم</span>
-    <h1 style="font-size:54px;margin:20px 0 14px">يسعدني أن نبدأ معًا</h1>
-    <p style="font-size:22px;opacity:.85;max-width:760px;line-height:1.7;margin:0 0 40px">لأي استفسار عن التقرير أو لبدء مرحلة التشخيص، تواصلوا معي مباشرة.</p>
-    <div style="display:flex;gap:60px;align-items:flex-end">
-      <div><div style="opacity:.6;font-size:15px">إعداد</div><div style="font-family:var(--display);font-size:30px">عبدالرحمن الديهي</div><div style="opacity:.8;font-size:17px">تطوير ووردبريس وسيو تقني</div></div>
-      <div><div style="opacity:.6;font-size:15px">واتساب</div><a href="https://wa.me/201099864648" class="ltr" style="color:#fff;text-decoration:none;font-size:24px;font-weight:700">+20 109 986 4648</a></div>
-      <div><div style="opacity:.6;font-size:15px">البريد الإلكتروني</div><a href="mailto:abdotoon970@gmail.com" class="ltr" style="color:#fff;text-decoration:none;font-size:24px;font-weight:700">abdotoon970@gmail.com</a></div>
+<section class="s green">
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:center;flex:1">
+    <div>
+      <span class="pill" style="background:var(--night);color:var(--emerald)">شكرًا لوقتكم</span>
+      <h1 style="font-size:64px;margin:22px 0 14px;color:var(--ink)">لنتحدث عن <span style="color:#fff">موقعكم</span></h1>
+      <p style="font-size:22px;font-weight:400;line-height:1.7;margin:0;color:rgba(0,0,0,.75)">لأي استفسار عن التقرير أو لبدء مرحلة التشخيص، تواصلوا معي مباشرة، وأرد بنفسي.</p>
+      <div style="display:flex;gap:14px;align-items:center;margin-top:30px"><img src="img/avatar.webp" style="width:64px;height:64px;border-radius:50%;border:3px solid #fff" alt=""><div><div style="font-size:24px;font-weight:900">عبدالرحمن الديهي</div><div style="font-size:16px;color:rgba(0,0,0,.7)">مطوّر ووردبريس وسيو تقني · خبرة +9 سنوات</div></div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <a class="cbtn blk" href="https://wa.me/201099864648"><div><strong>راسلني عبر واتساب</strong><small class="ltr" style="text-align:right">+20 109 986 4648</small></div></a>
+      <a class="cbtn" href="mailto:contact@abdulrahmaneldiehy.com"><div><strong>البريد الإلكتروني</strong><small class="ltr" style="text-align:right">contact@abdulrahmaneldiehy.com</small></div></a>
+      <a class="cbtn" href="https://abdulrahmaneldiehy.com/"><div><strong>الموقع الشخصي</strong><small class="ltr" style="text-align:right">abdulrahmaneldiehy.com</small></div></a>
     </div>
   </div>
-  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">19</span></div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg" style="background:transparent;border-color:rgba(0,0,0,.2)">19</span></div>
 </section>
 
 </body>
