@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>عرض فحص اليمن الغد</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* خط ثمانية: ضع ملفات OTF الرسمية في مجلد fonts بجانب هذا الملف */
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Regular.otf") format("opentype");font-weight:400}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Medium.otf") format("opentype");font-weight:500}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyahsans-Bold.otf") format("opentype");font-weight:700}
+@font-face{font-family:"Thmanyah Serif Display";src:url("fonts/thmanyahserifdisplay-Bold.otf") format("opentype");font-weight:700}
+
+/* ألوان الهوية (مؤقتة: تُستبدل بألوان موقعك) */
+:root{
+  --brand:#0F3D3E; --brand-2:#1B5E5F; --brand-soft:#E6EFEF;
+  --accent:#E07A2E; --accent-soft:#FCEFE4;
+  --ink:#16202A; --muted:#5F6B76; --line:#E2E7EA; --soft:#F4F6F7; --paper:#FFFFFF;
+  --bad:#C0352B; --bad-soft:#FBE9E7;
+  --warn:#B86A00; --warn-soft:#FDF1DF;
+  --mid:#2B5C9E; --mid-soft:#E7EFFA;
+  --good:#16794A; --good-soft:#E5F4EC;
+  --font:"Thmanyah Sans","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --display:"Thmanyah Serif Display","Thmanyah Sans","IBM Plex Sans Arabic",serif;
+}
+@page{size:1280px 720px;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--ink);font-family:var(--font)}
+.s{width:1280px;height:720px;position:relative;overflow:hidden;padding:56px 72px 60px;break-after:page;background:var(--paper);display:flex;flex-direction:column}
+.s:last-child{break-after:auto}
+.kicker{color:var(--accent);font-weight:700;font-size:17px;letter-spacing:.3px;margin-bottom:6px}
+h1,h2{font-family:var(--display);color:var(--brand);margin:0;line-height:1.3}
+h2{font-size:40px;margin-bottom:10px}
+.lead{font-size:21px;color:var(--muted);line-height:1.7;margin:0 0 22px;max-width:1000px}
+.ltr{direction:ltr;unicode-bidi:isolate}
+b{color:var(--brand)}
+.foot{position:absolute;bottom:22px;right:72px;left:72px;display:flex;justify-content:space-between;font-size:13px;color:#9AA4AD;border-top:1px solid var(--line);padding-top:10px}
+.foot .pg{font-weight:700;color:var(--brand)}
+
+/* الغلاف والختام */
+.dark{background:var(--brand);color:#fff}
+.dark h1,.dark h2,.dark b{color:#fff}
+.dark .foot{border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.55)}
+.dark .foot .pg{color:#fff}
+.cover h1{font-size:62px;line-height:1.2;margin:18px 0 18px}
+.pill{display:inline-block;padding:6px 18px;border-radius:999px;font-weight:700;font-size:16px}
+.pill.acc{background:var(--accent);color:#fff}
+.deco{position:absolute;left:-120px;top:-120px;width:520px;height:520px;border-radius:50%;border:70px solid rgba(255,255,255,.05)}
+.deco2{position:absolute;left:150px;bottom:-200px;width:380px;height:380px;border-radius:50%;background:rgba(224,122,46,.12)}
+
+/* شبكات وبطاقات */
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--soft);border-radius:18px;padding:22px 24px}
+.card h3{margin:0 0 6px;font-size:21px;color:var(--brand)}
+.card p{margin:0;font-size:16.5px;line-height:1.65;color:var(--muted)}
+.big{font-size:54px;font-weight:700;color:var(--brand);line-height:1.1;font-family:var(--font)}
+.big small{font-size:22px;color:var(--muted);font-weight:500}
+.lbl{font-size:16px;color:var(--muted);margin-top:6px;line-height:1.5}
+.ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.ico svg{width:26px;height:26px}
+
+/* الحالة */
+.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-weight:700;font-size:15px}
+.t-bad{background:var(--bad-soft);color:var(--bad)}
+.t-warn{background:var(--warn-soft);color:var(--warn)}
+.t-mid{background:var(--mid-soft);color:var(--mid)}
+.t-good{background:var(--good-soft);color:var(--good)}
+
+/* شريحة المشكلة */
+.prob{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;flex:1;align-items:start}
+.panel{border-radius:18px;padding:20px 24px;margin-bottom:14px}
+.panel h4{margin:0 0 6px;font-size:17px}
+.panel p{margin:0;font-size:17.5px;line-height:1.7}
+.p-what{background:var(--soft)}
+.p-why{background:var(--accent-soft)} .p-why h4{color:var(--accent)}
+.p-fix{background:var(--good-soft)} .p-fix h4{color:var(--good)}
+.p-what h4{color:var(--brand)}
+.fig{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px}
+.fig .cap{font-size:15px;color:var(--muted);margin-top:12px;line-height:1.6}
+
+/* أعمدة أفقية */
+.bars{display:flex;flex-direction:column;gap:11px}
+.bar{display:grid;grid-template-columns:150px 1fr 70px;align-items:center;gap:12px;font-size:16px}
+.bar .tr{height:22px;background:var(--soft);border-radius:4px;overflow:hidden}
+.bar .fl{height:100%;background:var(--brand);border-radius:4px}
+.bar .fl.hl{background:var(--accent)}
+.bar .v{font-weight:700;text-align:left;direction:ltr;color:var(--ink)}
+/* أعمدة رأسية */
+.cols{display:flex;align-items:flex-end;gap:10px;height:230px;border-bottom:1px solid var(--line);padding-top:24px}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px}
+.col .c{width:100%;max-width:46px;background:var(--brand);border-radius:4px 4px 0 0}
+.col .c.hl{background:var(--accent)}
+.col .n{font-size:13.5px;font-weight:700;color:var(--ink)}
+.xl{display:flex;gap:10px}.xl span{flex:1;text-align:center;font-size:13.5px;color:var(--muted);padding-top:6px}
+
+.list{margin:0;padding:0;list-style:none}
+.list li{display:flex;gap:12px;align-items:flex-start;font-size:18px;line-height:1.6;padding:8px 0;border-bottom:1px solid var(--line)}
+.list li:last-child{border:0}
+.dot{flex:none;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-top:2px}
+
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:16.5px}
+th{background:var(--brand);color:#fff;text-align:right;padding:11px 14px;font-weight:700}
+th:first-child{border-radius:0 12px 0 0}th:last-child{border-radius:12px 0 0 0}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55}
+
+.tl{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:10px}
+.step{background:var(--soft);border-radius:18px;padding:20px;position:relative}
+.step .num{width:42px;height:42px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:19px;margin-bottom:12px}
+.step .when{color:var(--accent);font-weight:700;font-size:15px}
+.step h3{font-size:20px;color:var(--brand);margin:4px 0 8px}
+.step p{font-size:15.5px;color:var(--muted);line-height:1.6;margin:0}
+
+.price{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;display:flex;flex-direction:column}
+.price.main{border:3px solid var(--brand);background:var(--brand-soft)}
+.price .amt{font-size:46px;font-weight:700;color:var(--accent);direction:ltr;text-align:right;margin:8px 0}
+.price h3{margin:0;font-size:22px;color:var(--brand)}
+.price p{font-size:16px;color:var(--muted);line-height:1.6;margin:0}
+.ribbon{position:absolute;top:-14px;left:24px;background:var(--accent);color:#fff;font-weight:700;font-size:13px;padding:4px 12px;border-radius:999px}
+
+.verdict{display:flex;gap:16px;align-items:center;background:var(--brand);color:#fff;border-radius:18px;padding:22px 28px;margin-top:auto}
+.verdict .t{font-size:22px;line-height:1.6}
+.verdict b{color:#fff}
+.note{font-size:14px;color:var(--muted)}
+.roomy .card h3{font-size:23px;margin-bottom:10px}.roomy .card p{font-size:18px;line-height:1.75}
+</style>
+</head>
+<body>
+
+<!-- 1 الغلاف -->
+<section class="s dark cover">
+  <div class="deco"></div><div class="deco2"></div>
+  <div style="margin-top:70px;position:relative">
+    <span class="pill acc">تقرير فحص الموقع</span>
+    <h1>موقع اليمن الغد<br>ما الذي يمنعه من الصدارة؟ وكيف نصلحه</h1>
+    <p style="font-size:23px;opacity:.85;max-width:780px;line-height:1.7;margin:0">فحص شامل للموقع من الداخل والخارج، بلغة واضحة، مع خطة عمل وتكلفة.</p>
+  </div>
+  <div style="margin-top:auto;display:flex;gap:70px;font-size:18px;position:relative;padding-bottom:30px">
+    <div><div style="opacity:.6;font-size:14px">الموقع</div><div class="ltr">alyemenalghad.com</div></div>
+    <div><div style="opacity:.6;font-size:14px">فترة الفحص</div>12 – 14 نوفمبر 2026</div>
+    <div><div style="opacity:.6;font-size:14px">إعداد</div><div style="font-family:var(--display);font-size:22px">عبدالرحمن الديهي</div></div>
+  </div>
+</section>
+
+<!-- 2 الخلاصة -->
+<section class="s">
+  <div class="kicker">الخلاصة في دقيقة</div>
+  <h2>الموقع سليم من الداخل، والعائق الحقيقي في «الثقة» و«المحتوى»</h2>
+  <p class="lead">لو تخيلنا الموقع سيارة: المحرك (البرمجة والسرعة) في حالة جيدة، لكن أوراق السيارة ولوحتها (من يكتب الأخبار، وتنظيم المحتوى) هي ما يجعل جوجل يتردد في تقديمها في الصفوف الأولى.</p>
+  <div class="grid g3">
+    <div class="card"><span class="tag t-good">جيد</span><h3 style="margin-top:12px">السرعة والبرمجة</h3><p>الصفحات تفتح في حوالي ثانيتين على موبايل متوسط، بدون اهتزاز في التصميم، والبيانات التي يقرأها جوجل موجودة.</p></div>
+    <div class="card"><span class="tag t-bad">يحتاج تدخل</span><h3 style="margin-top:12px">الثقة في الكاتب</h3><p>9 من كل 10 أخبار بلا اسم صحفي. جوجل يعطي أولوية للأخبار التي يعرف من كتبها.</p></div>
+    <div class="card"><span class="tag t-bad">يحتاج تدخل</span><h3 style="margin-top:12px">تنظيم المحتوى</h3><p>مئات الصفحات المكررة لنفس الموضوع، وأرشيف كبير بعيد عن الأخبار، وهذا يشتت تقييم جوجل للموقع.</p></div>
+  </div>
+  <div class="verdict"><div class="t"><b>النتيجة:</b> لا يوجد خطأ برمجي «يحجب» الموقع. هناك <b>14 نقطة تحسين</b> محددة بالدليل، منها <b>5 مؤثرة جدًا</b>، وكلها قابلة للحل خلال 3 إلى 5 أسابيع.</div></div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">02</span></div>
+</section>
+
+<!-- 3 حجم العمل -->
+<section class="s">
+  <div class="kicker">ماذا فحصنا</div>
+  <h2>فحص فعلي للموقع، وليس انطباعًا عامًا</h2>
+  <p class="lead">كل رقم في هذا التقرير جاء من قراءة مباشرة لصفحات الموقع وملفاته، وأُعيد الفحص على يومين مختلفين للتأكد من النتائج.</p>
+  <div class="grid g4">
+    <div class="card"><div class="big">6,607</div><div class="lbl">رابط مقال حللنا تاريخه وقسمه وموضوعه</div></div>
+    <div class="card"><div class="big">120</div><div class="lbl">مقالًا قرأناها بالكامل: الكاتب، الصورة، العنوان، البيانات المخفية</div></div>
+    <div class="card"><div class="big">19</div><div class="lbl">خريطة موقع راجعناها، إضافة لخريطة الأخبار وملف RSS</div></div>
+    <div class="card"><div class="big">6</div><div class="lbl">اختبارات سرعة على موبايل متوسط وإنترنت 4G بطيء</div></div>
+    <div class="card"><div class="big">2</div><div class="lbl">جولتا فحص (12 و14 نوفمبر) لرصد ما تغير</div></div>
+    <div class="card"><div class="big">84</div><div class="lbl">رابطًا داخليًا في الرئيسية تم اختبارها (83 سليم)</div></div>
+    <div class="card"><div class="big">5</div><div class="lbl">نطاقات وتحويلات قديمة تم التأكد منها (http، www، ar، ye، artic)</div></div>
+    <div class="card"><div class="big">2</div><div class="lbl">نقاشات سابقة باسم الموقع في منتديات جوجل تمت مراجعتها</div></div>
+  </div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">03</span></div>
+</section>
+
+<!-- 4 الموقع بالأرقام -->
+<section class="s">
+  <div class="kicker">الموقع بالأرقام</div>
+  <h2>6,607 مقالًا منشورًا، ونصفها تقريبًا ليس أخبارًا</h2>
+  <div class="grid g2" style="gap:30px;margin-top:10px">
+    <div class="fig">
+      <div style="font-weight:700;font-size:18px;margin-bottom:16px">عدد المقالات في كل قسم</div>
+      <div class="bars">
+        <div class="bar"><span>منوعات (general)</span><div class="tr"><div class="fl hl" style="width:100%"></div></div><span class="v">1,773</span></div>
+        <div class="bar"><span>أخبار عربية</span><div class="tr"><div class="fl" style="width:72.3%"></div></div><span class="v">1,282</span></div>
+        <div class="bar"><span>أخبار محلية</span><div class="tr"><div class="fl" style="width:72.2%"></div></div><span class="v">1,281</span></div>
+        <div class="bar"><span>فن (art)</span><div class="tr"><div class="fl hl" style="width:56.6%"></div></div><span class="v">1,003</span></div>
+        <div class="bar"><span>اقتصاد</span><div class="tr"><div class="fl" style="width:24.9%"></div></div><span class="v">442</span></div>
+        <div class="bar"><span>رياضة</span><div class="tr"><div class="fl" style="width:24.5%"></div></div><span class="v">434</span></div>
+        <div class="bar"><span>ترند</span><div class="tr"><div class="fl hl" style="width:19.8%"></div></div><span class="v">351</span></div>
+        <div class="bar"><span>عاجل + رأي</span><div class="tr"><div class="fl" style="width:2.3%"></div></div><span class="v">40</span></div>
+      </div>
+      <div class="cap">باللون البرتقالي: أقسام غير إخبارية، ومجموعها <b>3,127 مقالًا (47%)</b>.</div>
+    </div>
+    <div class="fig">
+      <div style="font-weight:700;font-size:18px">سنة نشر صور المقالات</div>
+      <div class="cols">
+        <div class="col"><span class="n">508</span><div class="c hl" style="height:32%"></div></div>
+        <div class="col"><span class="n">730</span><div class="c hl" style="height:46%"></div></div>
+        <div class="col"><span class="n">147</span><div class="c hl" style="height:9%"></div></div>
+        <div class="col"><span class="n">320</span><div class="c hl" style="height:20%"></div></div>
+        <div class="col"><span class="n">517</span><div class="c hl" style="height:33%"></div></div>
+        <div class="col"><span class="n">533</span><div class="c hl" style="height:34%"></div></div>
+        <div class="col"><span class="n">43</span><div class="c" style="height:3%"></div></div>
+        <div class="col"><span class="n">1,479</span><div class="c" style="height:93%"></div></div>
+        <div class="col"><span class="n">1,582</span><div class="c" style="height:100%"></div></div>
+        <div class="col"><span class="n">738</span><div class="c" style="height:47%"></div></div>
+      </div>
+      <div class="xl"><span>2017</span><span>2018</span><span>2019</span><span>2020</span><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
+      <div class="cap">حوالي <b>2,750 مقالًا (42%)</b> من 2017 إلى 2022، وهو أرشيف قديم يحتاج مراجعة (الشريحة 10).</div>
+    </div>
+  </div>
+  <div class="foot"><span>المصدر: خرائط الموقع (14 نوفمبر 2026)</span><span class="pg">04</span></div>
+</section>
+
+<!-- 5 السرعة -->
+<section class="s">
+  <div class="kicker">السرعة وتجربة القارئ</div>
+  <h2>الموقع سريع، وهذه نقطة قوة واضحة</h2>
+  <p class="lead">جرّبنا فتح الصفحات كما يفتحها قارئ عادي بموبايل متوسط وإنترنت 4G بطيء، 3 مرات لكل صفحة. جوجل يعتبر الصفحة «جيدة» إذا ظهر محتواها الأساسي في أقل من 2.5 ثانية.</p>
+  <div class="grid g4">
+    <div class="card" style="background:var(--good-soft)"><div class="big">2.1<small> ث</small></div><div class="lbl">ظهور المحتوى الأساسي في الرئيسية</div><span class="tag t-good" style="margin-top:10px">جيد</span></div>
+    <div class="card" style="background:var(--good-soft)"><div class="big">1.4<small> ث</small></div><div class="lbl">ظهور المحتوى الأساسي في صفحة الخبر</div><span class="tag t-good" style="margin-top:10px">ممتاز</span></div>
+    <div class="card" style="background:var(--good-soft)"><div class="big">0</div><div class="lbl">اهتزاز التصميم أثناء التحميل</div><span class="tag t-good" style="margin-top:10px">ممتاز</span></div>
+    <div class="card" style="background:var(--good-soft)"><div class="big">285<small> KB</small></div><div class="lbl">حجم صفحة الخبر كاملة (18 طلبًا فقط)</div><span class="tag t-good" style="margin-top:10px">خفيف</span></div>
+  </div>
+  <div class="grid g2" style="margin-top:20px">
+    <div class="card"><h3>الصفحة الرئيسية</h3><p>حجمها الكامل <b>574KB</b> في <b>27 طلبًا</b> فقط، واستجابة السيرفر الأولى حوالي <b>0.3 ثانية</b> في اختباراتنا.</p></div>
+    <div class="card" style="background:var(--warn-soft)"><h3>فرصة تحسين</h3><p>الرئيسية تحمّل أولًا صورة قديمة من أكتوبر بدل صورة الخبر الحالي، وهذا يؤخر ظهورها بلا داعٍ (الشريحة 12).</p></div>
+  </div>
+  <div class="foot"><span>قياس معملي. بيانات الزوار الفعلية تظهر في Search Console</span><span class="pg">05</span></div>
+</section>
+
+<!-- 6 نقاط القوة -->
+<section class="s">
+  <div class="kicker">ما هو جيد</div>
+  <h2>أساس قوي نبني عليه</h2>
+  <p class="lead">الموقع تحسن كثيرًا منذ مايو 2026، حين كان يعمل بقالب جاهز (Jannah). هذه نقاط يجب الحفاظ عليها أثناء أي تعديل:</p>
+  <div class="grid g3">
+    <div class="card"><div class="ico" style="background:var(--good-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="#16794A" stroke-width="2.2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><h3>آمن ومنظم</h3><p>اتصال مشفر HTTPS، وكل العناوين القديمة (ar وye وartic وwww) تحوّل للموقع الأساسي بشكل صحيح.</p></div>
+    <div class="card"><div class="ico" style="background:var(--good-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="#16794A" stroke-width="2.2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><h3>جوجل يفهم الخبر</h3><p>كل خبر يحمل «بطاقة تعريف» مخفية لجوجل (NewsArticle) فيها العنوان والتاريخ والصورة.</p></div>
+    <div class="card"><div class="ico" style="background:var(--good-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="#16794A" stroke-width="2.2"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 9v11"/></svg></div><h3>خريطة أخبار تعمل</h3><p>ملف خاص يخبر جوجل بالأخبار الجديدة أولًا بأول، وملف robots لا يمنع أي محتوى مهم.</p></div>
+    <div class="card"><div class="ico" style="background:var(--good-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="#16794A" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.5-6 8-6s7 2 8 6"/></svg></div><h3>صفحات الشفافية</h3><p>سياسة تحريرية، وتصحيح أخطاء، وأخلاقيات، وملكية وتمويل، وكلها مربوطة لجوجل.</p></div>
+    <div class="card"><div class="ico" style="background:var(--good-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="#16794A" stroke-width="2.2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-5-8 8"/></svg></div><h3>جاهز لـ Discover</h3><p>إذن عرض الصور بحجم كبير مفعّل، و78% من صور الأخبار الحديثة بالمقاس المطلوب.</p></div>
+    <div class="card"><div class="ico" style="background:var(--good-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="#16794A" stroke-width="2.2"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div><h3>إعلانات معتدلة</h3><p>إعلان أو اثنان فقط في صفحة الخبر. كثافة الإعلانات كانت ملاحظة على الموقع في 2025 وتم حلها.</p></div>
+  </div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">06</span></div>
+</section>
+
+<!-- 7 خريطة المشاكل -->
+<section class="s">
+  <div class="kicker">خريطة المشاكل</div>
+  <h2>14 نقطة تحسين، مرتبة حسب تأثيرها</h2>
+  <p class="lead">رتبناها مثل إشارة المرور: الأحمر أولًا لأنه الأكثر تأثيرًا على الظهور في الأخبار.</p>
+  <div class="grid g3" style="gap:22px">
+    <div class="card" style="background:var(--bad-soft)"><span class="tag t-bad">● مؤثرة جدًا</span><div class="big" style="color:var(--bad);margin-top:10px">5</div>
+      <ul class="list" style="margin-top:8px"><li style="font-size:16px">أخبار بلا اسم كاتب</li><li style="font-size:16px">صفحات مكررة لنفس الموضوع</li><li style="font-size:16px">أرشيف قديم خارج التخصص</li><li style="font-size:16px">قلة الأخبار اليومية</li><li style="font-size:16px">صور أصغر من مقاس Discover</li></ul></div>
+    <div class="card" style="background:var(--warn-soft)"><span class="tag t-warn">● مهمة</span><div class="big" style="color:var(--warn);margin-top:10px">4</div>
+      <ul class="list" style="margin-top:8px"><li style="font-size:16px">صفحات الكتّاب غير منظمة</li><li style="font-size:16px">الرئيسية تحمّل صورة قديمة</li><li style="font-size:16px">السيرفر لا يحفظ نسخة جاهزة</li><li style="font-size:16px">ملف RSS يتأخر أحيانًا</li></ul></div>
+    <div class="card" style="background:var(--mid-soft)"><span class="tag t-mid">● تحسينات</span><div class="big" style="color:var(--mid);margin-top:10px">5</div>
+      <ul class="list" style="margin-top:8px"><li style="font-size:16px">عناوين طويلة تُقص في جوجل</li><li style="font-size:16px">مقالات الرأي غير مميزة</li><li style="font-size:16px">صفحات «موضوعات» فارغة تقريبًا</li><li style="font-size:16px">كود زائد في رأس الصفحة</li><li style="font-size:16px">أخطاء صغيرة (ملف مفقود، تحويل مزدوج)</li></ul></div>
+  </div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">07</span></div>
+</section>
+
+<!-- 8 الكاتب -->
+<section class="s">
+  <div class="kicker"><span class="tag t-bad">مؤثرة جدًا</span>&nbsp; المشكلة 1</div>
+  <h2>جوجل لا يعرف من كتب الأخبار</h2>
+  <div class="prob">
+    <div>
+      <div class="panel p-what"><h4>ماذا وجدنا؟</h4><p>من 120 مقالًا فحصناها، <b>108 مقالات</b> منشورة باسم «هيئة تحرير اليمن الغد»، بدون اسم صحفي أو صورة أو نبذة. كما أن اسم الكاتب مكتوب في الصفحة كعنوان فرعي، وهذا يربك ترتيب الصفحة.</p></div>
+      <div class="panel p-why"><h4>لماذا يهم؟</h4><p>جوجل يقيّم الأخبار بمعيار «الخبرة والثقة». الخبر الذي يحمل اسم صحفي معروف له صفحة وتاريخ، يُعامل كمصدر موثوق أكثر من خبر بلا توقيع.</p></div>
+      <div class="panel p-fix"><h4>الحل</h4><p>صفحة لكل صحفي فيها صورة ونبذة وتخصص. ولو كانت سلامة الصحفيين تمنع ذكر الأسماء، نستخدم <b>أسماء مهنية ثابتة</b>، وهذا مقبول ويحقق نفس الأثر.</p></div>
+    </div>
+    <div class="fig" style="text-align:center">
+      <svg viewBox="0 0 220 220" width="300" height="300" style="display:block;margin:0 auto">
+        <circle cx="110" cy="110" r="80" fill="none" stroke="var(--line)" stroke-width="34"/>
+        <circle cx="110" cy="110" r="80" fill="none" stroke="var(--accent)" stroke-width="34" stroke-dasharray="452.4 502.7" transform="rotate(-90 110 110)"/>
+        <circle cx="110" cy="110" r="80" fill="none" stroke="var(--brand)" stroke-width="34" stroke-dasharray="48.3 502.7" stroke-dashoffset="-454.4" transform="rotate(-90 110 110)"/>
+        <text x="110" y="112" text-anchor="middle" font-size="44" font-weight="700" fill="var(--ink)" font-family="IBM Plex Sans Arabic">90%</text>
+        <text x="110" y="140" text-anchor="middle" font-size="14" fill="var(--muted)" font-family="IBM Plex Sans Arabic">بلا اسم صحفي</text>
+      </svg>
+      <div style="display:flex;justify-content:center;gap:26px;font-size:16px;margin-top:6px">
+        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--accent)"></span> هيئة التحرير: 108</span>
+        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--brand)"></span> صحفي باسمه: 11</span>
+      </div>
+      <div class="cap">في الأخبار الحديثة 82% بلا اسم، وفي الأرشيف 98%. وهناك 5 كتّاب فقط لهم صفحات، بينما صفحة «هيئة التحرير» نفسها مخفية عن جوجل.</div>
+    </div>
+  </div>
+  <div class="foot"><span>عينة 120 مقالًا: 60 حديثًا و60 من الأرشيف</span><span class="pg">08</span></div>
+</section>
+
+<!-- 9 التكرار -->
+<section class="s">
+  <div class="kicker"><span class="tag t-bad">مؤثرة جدًا</span>&nbsp; المشكلة 2</div>
+  <h2>صفحات كثيرة تتنافس على نفس السؤال</h2>
+  <div class="prob">
+    <div>
+      <div class="panel p-what"><h4>ماذا وجدنا؟</h4><p>بدل صفحة واحدة قوية لكل موضوع، يكتب الموقع مقالًا جديدًا كل مرة. مثلًا <b>6 صفحات</b> عن «تردد قناة طيور الجنة»، منها 3 نُشرت خلال 4 دقائق.</p></div>
+      <div class="panel p-why"><h4>لماذا يهم؟</h4><p>تخيل متجرًا فيه 220 بابًا يؤدي لنفس الغرفة. جوجل يحتار أيها يعرض، فيوزع القوة بينها ولا تتصدر أي منها، وقد يعتبر ذلك محتوى مكررًا.</p></div>
+      <div class="panel p-fix"><h4>الحل</h4><p>صفحة واحدة دائمة لكل موضوع متكرر (سعر الذهب، ترددات القنوات) تُحدَّث يوميًا، ونقل الصفحات القديمة إليها بتحويل دائم (301) بدون فقد أي زيارات.</p></div>
+    </div>
+    <div class="fig">
+      <div style="font-weight:700;font-size:18px;margin-bottom:18px">عدد الصفحات لكل موضوع متكرر</div>
+      <div class="bars">
+        <div class="bar"><span>ترددات القنوات</span><div class="tr"><div class="fl hl" style="width:100%"></div></div><span class="v">261</span></div>
+        <div class="bar"><span>أسعار الذهب</span><div class="tr"><div class="fl hl" style="width:84%"></div></div><span class="v">220</span></div>
+        <div class="bar"><span>مباريات</span><div class="tr"><div class="fl" style="width:85%"></div></div><span class="v">223</span></div>
+        <div class="bar"><span>نتائج وامتحانات</span><div class="tr"><div class="fl" style="width:33%"></div></div><span class="v">85</span></div>
+        <div class="bar"><span>أسعار الصرف</span><div class="tr"><div class="fl" style="width:28%"></div></div><span class="v">72</span></div>
+        <div class="bar"><span>تفسير أحلام</span><div class="tr"><div class="fl" style="width:19%"></div></div><span class="v">50</span></div>
+      </div>
+      <div class="cap">الأرقام من روابط الموقع كلها. ليست كل هذه الصفحات مكررة بالضرورة، لكنها المرشحة للدمج بعد مراجعة بيانات الزيارات.</div>
+    </div>
+  </div>
+  <div class="foot"><span>المصدر: تحليل 6,607 رابطًا في خرائط الموقع</span><span class="pg">09</span></div>
+</section>
+
+<!-- 10 الأرشيف -->
+<section class="s">
+  <div class="kicker"><span class="tag t-bad">مؤثرة جدًا</span>&nbsp; المشكلة 3</div>
+  <h2>أرشيف قديم يشتت هوية الموقع الإخبارية</h2>
+  <div class="prob">
+    <div>
+      <div class="panel p-what"><h4>ماذا وجدنا؟</h4><p>حوالي <b>2,750 مقالًا</b> من 2017 إلى 2022، ومحتوى مثل تفسير الأحلام وجداول امتحانات مصر 2022 والترددات. و47% من كل المقالات في أقسام غير إخبارية.</p></div>
+      <div class="panel p-why"><h4>لماذا يهم؟</h4><p>Google News يقيّم الموقع ككل: هل هو «مصدر أخبار» أم «موقع منوعات»؟ وقد أشار خبراء في منتدى ناشري جوجل لهذه النقطة تحديدًا عن الموقع.</p></div>
+      <div class="panel p-fix"><h4>الحل</h4><p>نصنّف الأرشيف حسب الزيارات الفعلية: <b>نبقي</b> المفيد، <b>نحدّث</b> ما يستحق، <b>ندمج</b> المكرر، و<b>نخفي أو نحذف</b> الميت. لا حذف عشوائي.</p></div>
+    </div>
+    <div class="fig">
+      <div style="font-weight:700;font-size:18px;margin-bottom:18px">ماذا نفعل بكل مقال قديم؟</div>
+      <div class="grid g2" style="gap:12px">
+        <div class="card" style="background:var(--good-soft);padding:16px"><h3 style="color:var(--good)">إبقاء</h3><p>يجلب زيارات ومحتواه ما زال صحيحًا</p></div>
+        <div class="card" style="background:var(--mid-soft);padding:16px"><h3 style="color:var(--mid)">تحديث</h3><p>موضوع مطلوب لكن معلوماته قديمة</p></div>
+        <div class="card" style="background:var(--warn-soft);padding:16px"><h3 style="color:var(--warn)">دمج</h3><p>أكثر من مقال لنفس الموضوع</p></div>
+        <div class="card" style="background:var(--bad-soft);padding:16px"><h3 style="color:var(--bad)">إخفاء أو حذف</h3><p>بلا زيارات ولا قيمة وخارج التخصص</p></div>
+      </div>
+      <div class="cap">هذا القرار يُتخذ بعد الاطلاع على بيانات Search Console، وبالتنسيق مع فريق التحرير.</div>
+    </div>
+  </div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">10</span></div>
+</section>
+
+<!-- 11 الصور والنشاط -->
+<section class="s">
+  <div class="kicker"><span class="tag t-bad">مؤثرة جدًا</span>&nbsp; المشكلتان 4 و5</div>
+  <h2>صور أصغر من المطلوب، وأخبار قليلة يوميًا</h2>
+  <div class="grid g2" style="gap:30px;flex:1">
+    <div class="fig">
+      <h3 style="margin:0 0 6px;color:var(--brand);font-size:22px">الصور وواجهة Discover</h3>
+      <p style="font-size:17px;color:var(--muted);line-height:1.7;margin:0 0 18px">Discover هي الأخبار التي تظهر للناس في تطبيق جوجل على الموبايل بدون بحث. شرطها صورة بعرض 1200 بكسل على الأقل.</p>
+      <div class="bars">
+        <div class="bar"><span>أخبار حديثة</span><div class="tr"><div class="fl" style="width:82%"></div></div><span class="v">82%</span></div>
+        <div class="bar"><span>الأرشيف</span><div class="tr"><div class="fl hl" style="width:58%"></div></div><span class="v">58%</span></div>
+      </div>
+      <div class="cap">نسبة المقالات التي صورتها بالمقاس الصحيح. 36 مقالًا من 120 صورتها أصغر (بعضها 400 بكسل فقط).<br><b style="color:var(--good)">الحل:</b> القالب يولّد نسخة 1200 تلقائيًا، ودليل بسيط للمحررين.</div>
+    </div>
+    <div class="fig">
+      <h3 style="margin:0 0 6px;color:var(--brand);font-size:22px">عدد الأخبار الجديدة</h3>
+      <p style="font-size:17px;color:var(--muted);line-height:1.7;margin:0 0 18px">«أهم الأخبار» في جوجل تفضّل المواقع النشطة. راقبنا خريطة الأخبار التي تحتوي آخر 48 ساعة:</p>
+      <div class="grid g2" style="gap:12px">
+        <div class="card" style="padding:16px"><div class="big">10</div><div class="lbl">أخبار خلال 48 ساعة<br>(12 نوفمبر)</div></div>
+        <div class="card" style="padding:16px;background:var(--bad-soft)"><div class="big" style="color:var(--bad)">4</div><div class="lbl">أخبار خلال 48 ساعة<br>(14 نوفمبر)</div></div>
+      </div>
+      <div class="cap">آخر خبر وقت الفحص الثاني نُشر قبل أكثر من 30 ساعة. المواقع المنافسة في أهم الأخبار تنشر عشرات الأخبار يوميًا.<br><b style="color:var(--good)">الحل:</b> قرار تحريري أكثر منه تقني، ونقدم له خطة نشر مقترحة.</div>
+    </div>
+  </div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">11</span></div>
+</section>
+
+<!-- 12 المشاكل المهمة -->
+<section class="s">
+  <div class="kicker"><span class="tag t-warn">مهمة</span>&nbsp; مشاكل تقنية في الإعدادات</div>
+  <h2>4 إصلاحات سريعة لها أثر مباشر</h2>
+  <p class="lead">مشاكل في الإعدادات وليست في المحتوى، وحلها سريع نسبيًا ونتائجها تظهر خلال أيام.</p>
+  <div class="grid g2 roomy" style="flex:1;grid-auto-rows:1fr;margin-bottom:30px">
+    <div class="card"><h3>1. الرئيسية تحمّل صورة قديمة أولًا</h3><p>الصفحة تطلب من المتصفح تحميل صورة خبر من شهر أكتوبر قبل أي شيء، بينما الخبر المعروض اليوم مختلف. النتيجة: تأخير بلا داعٍ.<br><b>الحل:</b> يتم اختيار صورة الخبر الأول تلقائيًا.</p></div>
+    <div class="card"><h3>2. السيرفر يجهّز كل صفحة من الصفر</h3><p>شبكة Cloudflare لا تحفظ نسخة جاهزة من الصفحات، فكل زائر يُرسل للسيرفر مباشرة. مع زيادة الزوار في الأخبار العاجلة قد يبطئ الموقع.<br><b>الحل:</b> تفعيل الحفظ مع تحديث تلقائي عند نشر أي خبر.</p></div>
+    <div class="card"><h3>3. صفحات الكتّاب غير منظمة</h3><p>صفحة «هيئة التحرير» التي تحمل معظم الأخبار مخفية عن جوجل، بينما صفحات كتّاب الرأي ظاهرة.<br><b>الحل:</b> قاعدة واحدة واضحة لكل صفحات الكتّاب.</p></div>
+    <div class="card"><h3>4. ملف RSS تأخر حوالي 18 ساعة</h3><p>يوم 12 نوفمبر كان الملف الذي تقرأه تطبيقات الأخبار متأخرًا عن الموقع، وصورته بعرض 820 بكسل فقط.<br><b>الحل:</b> استثناؤه من الحفظ المؤقت، وتكبير صورته.</p></div>
+  </div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">12</span></div>
+</section>
+
+<!-- 13 التحسينات -->
+<section class="s">
+  <div class="kicker"><span class="tag t-mid">تحسينات</span>&nbsp; تفاصيل فنية أصغر</div>
+  <h2>5 تحسينات تكمل الصورة</h2>
+  <table style="margin-top:14px">
+    <thead><tr><th style="width:28%">النقطة</th><th>ماذا تعني ببساطة</th><th style="width:22%">الأثر</th></tr></thead>
+    <tbody>
+      <tr><td><b>عناوين طويلة</b></td><td>38% من عناوين العينة أطول من 65 حرفًا، فتظهر مقصوصة في نتائج جوجل.</td><td>نسبة النقر من البحث</td></tr>
+      <tr><td><b>مقالات الرأي</b></td><td>تُعرّف لجوجل كأخبار عادية، والأفضل تمييزها كـ «رأي» بنوع خاص.</td><td>دقة التصنيف في الأخبار</td></tr>
+      <tr><td><b>صفحات الموضوعات</b></td><td>244 صفحة «موضوع» و«قصة» ظاهرة لجوجل، وبعضها شبه فارغ (عنوان وبطاقات قليلة فقط).</td><td>جودة الموقع ككل</td></tr>
+      <tr><td><b>كود زائد في رأس الصفحة</b></td><td>حوالي 68KB من التنسيقات والأكواد مكررة في كل صفحة بدل حفظها مرة واحدة.</td><td>سرعة الموبايل</td></tr>
+      <tr><td><b>أخطاء صغيرة</b></td><td>ملف manifest مفقود (خطأ 404)، وتحويل مزدوج لرابط http://www.</td><td>نظافة تقنية</td></tr>
+    </tbody>
+  </table>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">13</span></div>
+</section>
+
+<!-- 14 ما اتحل -->
+<section class="s">
+  <div class="kicker">متابعة أثناء الفحص</div>
+  <h2>ما تغيّر بين جولتي الفحص</h2>
+  <p class="lead">أعدنا الفحص بعد يومين، ورصدنا تحسنين تم تنفيذهما. هذا يؤكد أن التقرير مبني على حالة الموقع الحالية بدقة.</p>
+  <div class="grid g2">
+    <div class="card" style="background:var(--good-soft)"><span class="tag t-good">✓ تم حله</span><h3 style="margin-top:12px">حساب كاتب باسم «z.ai»</h3><p>كان ظاهرًا لجوجل وعليه مقالات منشورة، وهذه إشارة على محتوى آلي. الآن الصفحة محذوفة نهائيًا (410) وخارج خريطة الكتّاب.</p></div>
+    <div class="card" style="background:var(--good-soft)"><span class="tag t-good">✓ سليم</span><h3 style="margin-top:12px">تحويل نسخة http</h3><p>رُصد سابقًا خطأ 500 عند فتح الموقع بدون https. حاليًا كل الروابط تحوّل بشكل صحيح، حتى عند فحصها بصفة زاحف جوجل.</p></div>
+  </div>
+  <div class="card" style="margin-top:18px"><h3>ملاحظة على مقالات z.ai</h3><p>يُنصح بمراجعة المقالات التي كانت منشورة بهذا الحساب: هل نُقلت لكاتب آخر أم ما زالت منشورة بنفس المحتوى؟ والتأكد من أنها مراجعة تحريريًا.</p></div>
+  <div class="foot"><span>فحص 12 نوفمبر مقابل 14 نوفمبر 2026</span><span class="pg">14</span></div>
+</section>
+
+<!-- 15 الخلفية -->
+<section class="s">
+  <div class="kicker">خلفية مهمة</div>
+  <h2>المشكلة أقدم من القالب الحالي</h2>
+  <div class="grid g3" style="margin-top:14px">
+    <div class="card"><div class="kicker" style="font-size:15px">سبتمبر 2025</div><h3>أول شكوى معلنة</h3><p>نقاش باسم الموقع في منتدى جوجل عن تراجع الظهور، وأشار مشاركون إلى كثافة الإعلانات وقتها.</p></div>
+    <div class="card"><div class="kicker" style="font-size:15px">مايو 2026</div><h3>شكوى ثانية</h3><p>تراجع في Google News وأهم الأخبار وتأخر الفهرسة، والموقع وقتها بقالب Jannah وإضافة Rank Math.</p></div>
+    <div class="card" style="background:var(--brand-soft)"><div class="kicker" style="font-size:15px">نوفمبر 2026</div><h3>الوضع الحالي</h3><p>قالب مخصص وسريع، وإعلانات أخف، وصفحات شفافية كاملة. المشاكل التقنية القديمة أغلبها انتهت.</p></div>
+  </div>
+  <div class="verdict" style="margin-top:28px"><div class="t">لذلك نرجّح أن العائق الأكبر المتبقي هو <b>الثقة والمحتوى</b> وليس الكود. حسم السبب بنسبة 100% يحتاج الاطلاع على <b>Search Console</b>، فهو الصندوق الأسود الذي يسجل كل ما يراه جوجل.</div></div>
+  <div class="foot"><span>المصدر: منتديات Google Search Central وPublisher Center</span><span class="pg">15</span></div>
+</section>
+
+<!-- 16 الخطة -->
+<section class="s">
+  <div class="kicker">خطة العمل</div>
+  <h2>5 مراحل واضحة خلال 3 إلى 5 أسابيع</h2>
+  <div class="tl">
+    <div class="step"><div class="num">1</div><div class="when">يومان</div><h3>التشخيص الكامل</h3><p>الدخول إلى Search Console ولوحة الموقع، وحسم السبب بالأرقام، وقائمة إصلاحات نهائية.</p></div>
+    <div class="step"><div class="num">2</div><div class="when">الأسبوع 1</div><h3>إصلاحات سريعة</h3><p>صورة الرئيسية، والحفظ المؤقت، وملف RSS، وصفحات الكتّاب، والأخطاء الصغيرة.</p></div>
+    <div class="step"><div class="num">3</div><div class="when">الأسبوع 2–3</div><h3>تطوير القالب</h3><p>صفحات الصحفيين، ونوع مقالات الرأي، والصور 1200، وتخفيف الكود، وقالب العناوين.</p></div>
+    <div class="step"><div class="num">4</div><div class="when">الأسبوع 3–5</div><h3>المحتوى والأرشيف</h3><p>دمج المكرر بتحويلات آمنة، وتصنيف الأرشيف، ودليل تحريري مختصر للفريق.</p></div>
+    <div class="step"><div class="num">5</div><div class="when">بعد 4 أسابيع</div><h3>القياس</h3><p>تقرير «قبل وبعد» من Search Console يوضح أثر كل ما تم.</p></div>
+  </div>
+  <div class="card" style="margin-top:22px;display:flex;gap:30px;align-items:center"><h3 style="margin:0;white-space:nowrap">طريقة العمل</h3><p>نسخة احتياطية كاملة قبل أي تعديل، والعمل على نسخة تجريبية أولًا، واختبار كل إصلاح قبل نقله للموقع الحي، وتقرير تسليم مكتوب.</p></div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">16</span></div>
+</section>
+
+<!-- 17 التكلفة -->
+<section class="s">
+  <div class="kicker">التكلفة</div>
+  <h2>استثمار واضح على مراحل</h2>
+  <p class="lead">تبدأون بالتشخيص فقط، ثم تقررون. وإن استكملنا التنفيذ، تُخصم قيمة التشخيص بالكامل.</p>
+  <div class="grid g3" style="gap:22px">
+    <div class="price"><h3>التشخيص الكامل</h3><div class="amt">$100</div><p>تحليل Search Console ولوحة التحكم، وحسم السبب، وقائمة إصلاحات نهائية بالسعر الدقيق.</p><p style="margin-top:auto;padding-top:14px;color:var(--good);font-weight:700">يُخصم من التنفيذ</p></div>
+    <div class="price main" style="position:relative"><span class="ribbon">الأساسي</span><h3>الإصلاحات التقنية والبرمجية</h3><div class="amt">$450 – $600</div><p>المرحلتان 2 و3 (حوالي 35 ساعة عمل): كل إصلاحات الإعدادات وتطوير القالب واختبارها.</p><p style="margin-top:auto;padding-top:14px;font-weight:700;color:var(--brand)">السعر النهائي بعد التشخيص</p></div>
+    <div class="price"><h3>المحتوى والأرشيف</h3><div class="amt">$150 – $250</div><p>دمج المكرر وتصنيف الأرشيف والدليل التحريري. يمكن لفريقكم تنفيذها بإشرافي.</p><p style="margin-top:auto;padding-top:14px;color:var(--muted);font-weight:700">اختيارية</p></div>
+  </div>
+  <div class="grid g3" style="margin-top:18px;font-size:16px;color:var(--muted)">
+    <div><b>الدفع:</b> 50% عند البدء و50% عند التسليم، أو عبر منصة عمل حر.</div>
+    <div><b>غير مشمول:</b> اشتراكات مدفوعة (استضافة، Cloudflare) إن ثبتت الحاجة لها.</div>
+    <div><b>للأمانة:</b> لا أحد يستطيع ضمان ترتيب معين في جوجل. نضمن إزالة كل عائق تقني وتنظيمي.</div>
+  </div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">17</span></div>
+</section>
+
+<!-- 18 المطلوب -->
+<section class="s">
+  <div class="kicker">للبدء</div>
+  <h2>ما نحتاجه منكم</h2>
+  <div class="grid g2" style="gap:30px;margin-top:10px">
+    <ul class="list">
+      <li><span class="dot" style="background:var(--brand);color:#fff">1</span><div><b>صلاحية مشاهدة Search Console</b><br><span style="color:var(--muted);font-size:16px">للنطاق الحالي والنطاقات القديمة، تكفي صلاحية قراءة فقط.</span></div></li>
+      <li><span class="dot" style="background:var(--brand);color:#fff">2</span><div><b>حساب على لوحة ووردبريس</b><br><span style="color:var(--muted);font-size:16px">بصلاحية مدير، ويمكن إلغاؤه فور التسليم.</span></div></li>
+      <li><span class="dot" style="background:var(--brand);color:#fff">3</span><div><b>دخول Cloudflare والاستضافة</b><br><span style="color:var(--muted);font-size:16px">لإعدادات الحفظ المؤقت والتحويلات.</span></div></li>
+      <li><span class="dot" style="background:var(--brand);color:#fff">4</span><div><b>Google Publisher Center</b><br><span style="color:var(--muted);font-size:16px">لمعرفة حالة الموقع داخل Google News.</span></div></li>
+    </ul>
+    <div class="card" style="background:var(--brand-soft)">
+      <h3>ما الذي ستحصلون عليه</h3>
+      <ul class="list" style="margin-top:6px">
+        <li style="font-size:17px">✓ تقرير تشخيص نهائي بالأرقام من جوجل نفسه</li>
+        <li style="font-size:17px">✓ تنفيذ كل إصلاح مع اختباره</li>
+        <li style="font-size:17px">✓ نسخة احتياطية قبل أي تعديل</li>
+        <li style="font-size:17px">✓ دليل تحريري مختصر لفريقكم</li>
+        <li style="font-size:17px">✓ تقرير «قبل وبعد» بعد 4 أسابيع</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">18</span></div>
+</section>
+
+<!-- 19 التواصل -->
+<section class="s dark">
+  <div class="deco"></div><div class="deco2"></div>
+  <div style="margin:auto 0;position:relative">
+    <span class="pill acc">شكرًا لوقتكم</span>
+    <h1 style="font-size:54px;margin:20px 0 14px">يسعدني أن نبدأ معًا</h1>
+    <p style="font-size:22px;opacity:.85;max-width:760px;line-height:1.7;margin:0 0 40px">لأي استفسار عن التقرير أو لبدء مرحلة التشخيص، تواصلوا معي مباشرة.</p>
+    <div style="display:flex;gap:60px;align-items:flex-end">
+      <div><div style="opacity:.6;font-size:15px">إعداد</div><div style="font-family:var(--display);font-size:30px">عبدالرحمن الديهي</div><div style="opacity:.8;font-size:17px">تطوير ووردبريس وسيو تقني</div></div>
+      <div><div style="opacity:.6;font-size:15px">واتساب</div><a href="https://wa.me/201099864648" class="ltr" style="color:#fff;text-decoration:none;font-size:24px;font-weight:700">+20 109 986 4648</a></div>
+      <div><div style="opacity:.6;font-size:15px">البريد الإلكتروني</div><a href="mailto:abdotoon970@gmail.com" class="ltr" style="color:#fff;text-decoration:none;font-size:24px;font-weight:700">abdotoon970@gmail.com</a></div>
+    </div>
+  </div>
+  <div class="foot"><span>تقرير فحص موقع اليمن الغد</span><span class="pg">19</span></div>
+</section>
+
+</body>
+</html>
